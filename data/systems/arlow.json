@@ -1,0 +1,44 @@
+{
+  "system" : {
+    "title":"Lovag Arlow Gusztáv - Kardvívás (1902)",
+    "weapon":"sabre",
+    "elements":
+    [
+      "kéz", "hegy"
+    ],
+	"default-participants" : ["mester", "tanítvány"]
+  },
+  
+  "techniques" : [
+    {
+      "name" : "szekond gard",
+      "assertions" : [{"kéz" : "1. kézállás"}],
+      "invokes" : [],
+      "note" : ""
+    },
+	{
+      "name" : "szekond védés",
+      "assertions" : [],
+      "invokes" : ["szekond invito"],
+      "note" : ""
+    },
+    {
+      "name" : "szekond invito",
+      "assertions" : [{"kéz" : "1. kézállás"}],
+      "invokes" : [],
+      "note" : ""
+    },
+    {
+      "name" : "alsó egyenes szúrás",
+      "assertions" : [{"hegy" : "alsó vonal"}],
+      "invokes" : [],
+      "note" : ""
+    },
+	{
+      "name" : "külső elütés",
+      "assertions" : [],
+      "invokes" : ["szekond invito"],
+      "note" : ""
+    }
+  ]
+}
