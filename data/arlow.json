@@ -6,7 +6,7 @@
     [
       "kéz", "hegy"
     ],
-	"default-participants" : ["mester", "tanítvány"]
+	"participants" : ["mester", "tanítvány"]
   },
   
   "techniques" : [
@@ -40,5 +40,33 @@
       "invokes" : ["szekond invito"],
       "note" : ""
     }
+  ],
+  
+  "exercises" : [
+	{
+	  "name" : "20. gyakorlat",
+	  "init" : {
+		"mester" : "szekond gard",
+		"tanítvány" : "szekond gard",
+		"setting" : ["rendes távolság"]
+	  },
+	  "flow" : [
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["külső elütés","ugrásroham"],
+			"note" : ""
+		  },
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["alsó egyenes szúrás"],
+			"note" : ""
+		  },
+		  {
+			"actor" : "mester",
+			"actions" : ["szekond védés"],
+			"note" : "opponál"
+		  }
+		]
+	}
   ]
 }
