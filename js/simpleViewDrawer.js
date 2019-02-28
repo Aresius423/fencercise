@@ -17,16 +17,14 @@ class SimpleViewDrawer{
 	
 	participantTable(participantName){
 		let tableHeader = `<tr><th colspan="2">${participantName}</th></tr>`
-		let participantElements = this.sysdata.system["elements"].map
-		(function(el){
+		let participantParts = this.sysdata.system.bodyparts.map(function(el){
 			return {part:el,ident:idGenerator(participantName, el)}
 		})
-		return tableHeader + participantElements.map(el => tagwrap('tr', tagwrap('td', el["part"]) + tagwrap('td', "", el["id"], "widecol"))).join("\n") + '<br><br>'
+		return tableHeader + participantParts.map(el => tagwrap('tr', tagwrap('td', el["part"]) + tagwrap('td', "", el["id"], "widecol"))).join("\n") + '<br><br>'
 	}
 	
 	drawViewFrames(){
-		console.log(this.sysdata)
-		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system["participants"][0]))
-		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system["participants"][1]))
+		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[0]))
+		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[1]))
 	}
 }
