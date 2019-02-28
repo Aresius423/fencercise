@@ -11,3 +11,13 @@ a {
 	color: #00BFFF;
 }
 
+tr, td {
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.widecol {
+	min-width:100px;
+}
+
