@@ -21,3 +21,6 @@ tr, td {
 	min-width:100px;
 }
 
+.title {
+	font-size: large;
+}

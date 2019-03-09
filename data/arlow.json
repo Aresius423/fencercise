@@ -4,7 +4,7 @@
     "weapon":"sabre",
     "bodyparts":
     [
-      "kéz", "hegy"
+      "kéz", "hegy", "láb"
     ],
 	"participants" : ["mester", "tanítvány"]
   },
@@ -12,32 +12,38 @@
   "techniques" : [
     {
       "name" : "szekond gard",
-      "assertions" : [{"kéz" : "1. kézállás"}],
+      "assertions" : {"kéz" : "1. kézállás"},
       "invokes" : [],
       "note" : ""
     },
 	{
       "name" : "szekond védés",
-      "assertions" : [],
+      "assertions" : {},
       "invokes" : ["szekond invito"],
       "note" : ""
     },
     {
       "name" : "szekond invito",
-      "assertions" : [{"kéz" : "1. kézállás"}],
+      "assertions" : {"kéz" : "1. kézállás"},
       "invokes" : [],
       "note" : ""
     },
     {
       "name" : "alsó egyenes szúrás",
-      "assertions" : [{"hegy" : "alsó vonal"}],
+      "assertions" : {"hegy" : "alsó vonal"},
       "invokes" : [],
       "note" : ""
     },
 	{
       "name" : "külső elütés",
-      "assertions" : [],
+      "assertions" : {},
       "invokes" : ["szekond invito"],
+      "note" : ""
+    },
+	{
+      "name" : "ugrásroham",
+      "assertions" : {"láb":"kitörés"},
+      "invokes" : [],
       "note" : ""
     }
   ],
@@ -48,7 +54,7 @@
 	  "init" : {
 		"mester" : "szekond gard",
 		"tanítvány" : "szekond gard",
-		"setting" : ["rendes távolság"]
+		"note" : ["rendes távolság"]
 	  },
 	  "flow" : [
 		  {

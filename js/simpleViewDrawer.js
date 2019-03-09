@@ -10,22 +10,18 @@ var idGenerator = function(participantName, partName){
 
 class SimpleViewDrawer{
 	constructor(system){
-		this.sysdata = system
+		this.sysdata = system //todo: clear up architecture, don't access system functions from this class
 	}
-	
-	
 	
 	participantTable(participantName){
 		let tableHeader = `<tr><th colspan="2">${participantName}</th></tr>`
 		let participantParts = this.sysdata.system.bodyparts.map(function(el){
-			return {part:el,ident:idGenerator(participantName, el)}
+			return {part:el,id:idGenerator(participantName, el)}
 		})
-		
-		
 		
 		return tableHeader + participantParts.map(el => {
 			let partname = tagwrap('td', el["part"])
-			let partstatus = tagwrap('td', "", {id:el["id"], classname:"widecol"})
+			let partstatus = tagwrap('td', "", {id:el["id"], classname:"widecol bodypartstatus"})
 			return tagwrap('tr', partname + partstatus)
 		}).join("\n") + '<br><br>'
 	}
@@ -33,5 +29,33 @@ class SimpleViewDrawer{
 	drawViewFrames(){
 		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[0]))
 		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[1]))
+	}
+	
+	clearViewFrames(){
+		Array.from(document.getElementsByClassName("bodypartstatus"))
+			.forEach(el => el.innerHTML = '')
+	}
+	
+	drawControls(){
+		document.getElementById("controlbox").innerHTML = '<br><br>' + 
+			'<input type="button" value="load exercise" onclick="loadedSystem.loadExercise(0);" />' +
+			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" />' +
+			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" />'
+	}
+	
+	updatePart(actor, part, value){
+		document.getElementById(idGenerator(actor, part)).innerHTML=value
+	}
+	
+	enableElement(elname){
+		document.getElementById(`${elname}button`).disabled = false
+	}
+	
+	disableElement(elname){
+		document.getElementById(`${elname}button`).disabled = true
+	}
+	
+	displayAction(action){
+		document.getElementById("stepdesc").innerHTML = action
 	}
 }

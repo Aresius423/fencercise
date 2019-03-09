@@ -35,4 +35,5 @@ var parseData = function(data, exercise=null){
 	loadedSystem = new SystemData(data)
 	systemDrawer = new SimpleViewDrawer(loadedSystem)
 	systemDrawer.drawViewFrames()
+	systemDrawer.drawControls()
 }
