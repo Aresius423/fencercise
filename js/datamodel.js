@@ -37,7 +37,12 @@ class SystemData {
 		let note = this.activeExercise.init["note"]
 		let noteText = note?note:""
 		
-		systemDrawer.displayAction(`${p0init}${p1init}${noteText}`)
+		systemDrawer.displayAction(`${p0init}${p1init}`)
+		systemDrawer.displayNote(noteText)
+	}
+	
+	unstepExercise(){
+		this.setExerciseStage(this.exerciseStep-1)
 	}
 	
 	stepExercise(){
@@ -49,10 +54,25 @@ class SystemData {
 	}
 	
 	checkButtons(){
-		if(this.exerciseStep < this.activeExercise.flow.length - 1)
-			systemDrawer.enableElement("next")
-		else
+		if(this.activeExercise) {
+			if(this.exerciseStep < this.activeExercise.flow.length - 1)
+				systemDrawer.enableElement("next")
+			else
+				systemDrawer.disableElement("next")
+			
+			if(this.exerciseStep >= 0)
+				systemDrawer.enableElement("previous")
+			else
+				systemDrawer.disableElement("previous")
+			
+			systemDrawer.enableElement("reset")
+		}
+		else {
 			systemDrawer.disableElement("next")
+			systemDrawer.disableElement("previous")
+			systemDrawer.disableElement("reset")
+		}
+			
 	}
 	
 	setExerciseStage(exerciseStep){

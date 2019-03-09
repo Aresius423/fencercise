@@ -24,3 +24,11 @@ tr, td {
 .title {
 	font-size: large;
 }
+
+.stepbox {
+	background-color: rgba(85, 106, 255, 0.3);
+}
+
+.notebox {
+	background-color: rgba(238, 208, 0, 0.3);
+}

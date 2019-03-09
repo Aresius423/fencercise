@@ -39,8 +39,9 @@ class SimpleViewDrawer{
 	drawControls(){
 		document.getElementById("controlbox").innerHTML = '<br><br>' + 
 			'<input type="button" value="load exercise" onclick="loadedSystem.loadExercise(0);" />' +
-			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" />' +
-			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" />'
+			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" disabled />' +
+			'<input id="previousbutton" type="button" value="previous step" onclick="loadedSystem.unstepExercise();" disabled />' +
+			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
 	}
 	
 	updatePart(actor, part, value){
@@ -57,5 +58,9 @@ class SimpleViewDrawer{
 	
 	displayAction(action){
 		document.getElementById("stepdesc").innerHTML = action
+	}
+	
+	displayNote(note){
+		document.getElementById("stepnote").innerHTML = note
 	}
 }
