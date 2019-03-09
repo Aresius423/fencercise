@@ -1,6 +1,6 @@
-var tagwrap = function(tag, content, id=null, cls=null){
+var tagwrap = function(tag, content, {id,classname}={}){
 	let idField = id?' id="' + id + '"' : ''
-	let classField = cls?' class="' + cls + '"' : ''
+	let classField = classname?' class="' + classname + '"' : ''
 	return `<${tag}${idField}${classField}>${content}</${tag}>`
 }
 
@@ -20,7 +20,14 @@ class SimpleViewDrawer{
 		let participantParts = this.sysdata.system.bodyparts.map(function(el){
 			return {part:el,ident:idGenerator(participantName, el)}
 		})
-		return tableHeader + participantParts.map(el => tagwrap('tr', tagwrap('td', el["part"]) + tagwrap('td', "", el["id"], "widecol"))).join("\n") + '<br><br>'
+		
+		
+		
+		return tableHeader + participantParts.map(el => {
+			let partname = tagwrap('td', el["part"])
+			let partstatus = tagwrap('td', "", {id:el["id"], classname:"widecol"})
+			return tagwrap('tr', partname + partstatus)
+		}).join("\n") + '<br><br>'
 	}
 	
 	drawViewFrames(){
