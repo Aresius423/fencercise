@@ -1,5 +1,6 @@
 class SystemData {
 	constructor(rawData){
+		this.subscribers = []
 		let jsData = JSON.parse(rawData)
 		
 		this.system = jsData["system"]
@@ -15,6 +16,20 @@ class SystemData {
 		//this.traceback = {[this.p0name]: {}, [this.p1name]: {}}
 		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
 		this.systemDrawer = new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
+	}
+	
+	subscribe(subscriber){
+		if(!this.subscribers.includes(subscriber)){
+			this.subscribers.push(subscriber)
+		}
+	}
+	
+	unsubscribe(subscriber){
+		this.subscribers = this.subscribers.filter(sub => subscriber != sub)
+	}
+	
+	notifyAll(){
+		this.subscribers.forEach(sub => sub.call(this))
 	}
 	
 	listExercises(){

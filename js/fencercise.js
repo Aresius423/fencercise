@@ -1,10 +1,11 @@
 //todo: everything
 
 const systems = [{"Lovag Arlow Gusztáv - Kardvívás (1902)":"arlow.json"}];
-var loadedSystem = null
+
+var loadedSystem = null //todo: remove
 
 window.onload = function(){
-	document.getElementById("syspick").innerHTML = `<ul>${listSystems()}</ul>`
+	UiDrawer.listSystems()
 }
 
 var loadData = function(filename, exercise=null){
@@ -25,6 +26,7 @@ var loadData = function(filename, exercise=null){
 }
 
 var parseData = function(data, exercise=null){
-	loadedSystem = new SystemData(data)
-	loadedSystem.listExercises();
+	let newSystem = new SystemData(data)
+	loadedSystem = newSystem
+	UiDrawer.listExercises(newSystem);
 }
