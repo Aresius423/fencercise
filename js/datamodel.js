@@ -17,6 +17,11 @@ class SystemData {
 		return new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
 	}
 	
+	listExercises(){
+		//pass the list of exercises to the drawer
+		listExercises(this.exercises.map(e => e.name))
+	}
+	
 	loadExercise(exerciseNumber){
 		this.activeExercise = this.exercises[exerciseNumber]
 		document.getElementById("exercise-title").innerHTML = this.activeExercise.name

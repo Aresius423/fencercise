@@ -5,13 +5,7 @@ var loadedSystem = null
 var systemDrawer = null
 
 window.onload = function(){
-document.getElementById("syspick").innerHTML = `<ul>${listSystems()}</ul>`
-}
-
-var listSystems = function(){
-	return systems.reduce((acc,cur) => 
-	acc + `<li><a onclick="loadData('${cur[Object.keys(cur)[0]]}')" href="#">${Object.keys(cur)[0]}</a></li>\n`
-	,"")
+	document.getElementById("syspick").innerHTML = `<ul>${listSystems()}</ul>`
 }
 
 var loadData = function(filename, exercise=null){
@@ -34,6 +28,5 @@ var loadData = function(filename, exercise=null){
 var parseData = function(data, exercise=null){
 	loadedSystem = new SystemData(data)
 	systemDrawer = loadedSystem.instantiateDrawer()
-	systemDrawer.drawViewFrames()
-	systemDrawer.drawControls()
+	loadedSystem.listExercises();
 }

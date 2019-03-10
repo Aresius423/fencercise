@@ -13,6 +13,9 @@ class SimpleViewDrawer{
 		this.p0name = participants[0]
 		this.p1name = participants[1]
 		this.parts = bodyparts
+		
+		this.drawViewFrames()
+		this.drawControls()
 	}
 	
 	participantTable(participantName){
@@ -40,7 +43,6 @@ class SimpleViewDrawer{
 	
 	drawControls(){
 		document.getElementById("controlbox").innerHTML = '<br><br>' + 
-			'<input type="button" value="load exercise" onclick="loadedSystem.loadExercise(0);" />' +
 			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" disabled />' +
 			'<input id="previousbutton" type="button" value="previous step" onclick="loadedSystem.unstepExercise();" disabled />' +
 			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
