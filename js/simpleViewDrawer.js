@@ -9,13 +9,15 @@ var idGenerator = function(participantName, partName){
 }
 
 class SimpleViewDrawer{
-	constructor(system){
-		this.sysdata = system //todo: clear up architecture, don't access system functions from this class
+	constructor(participants, bodyparts){
+		this.p0name = participants[0]
+		this.p1name = participants[1]
+		this.parts = bodyparts
 	}
 	
 	participantTable(participantName){
 		let tableHeader = `<tr><th colspan="2">${participantName}</th></tr>`
-		let participantParts = this.sysdata.system.bodyparts.map(function(el){
+		let participantParts = this.parts.map(function(el){
 			return {part:el,id:idGenerator(participantName, el)}
 		})
 		
@@ -27,8 +29,8 @@ class SimpleViewDrawer{
 	}
 	
 	drawViewFrames(){
-		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[0]))
-		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(this.sysdata.system.participants[1]))
+		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(this.p0name))
+		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(this.p1name))
 	}
 	
 	clearViewFrames(){

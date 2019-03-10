@@ -13,6 +13,10 @@ class SystemData {
 		this.exerciseStep = -1
 	}
 	
+	instantiateDrawer(){
+		return new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
+	}
+	
 	loadExercise(exerciseNumber){
 		this.activeExercise = this.exercises[exerciseNumber]
 		document.getElementById("exercise-title").innerHTML = this.activeExercise.name

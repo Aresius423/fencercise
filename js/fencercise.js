@@ -33,7 +33,7 @@ var loadData = function(filename, exercise=null){
 
 var parseData = function(data, exercise=null){
 	loadedSystem = new SystemData(data)
-	systemDrawer = new SimpleViewDrawer(loadedSystem)
+	systemDrawer = loadedSystem.instantiateDrawer()
 	systemDrawer.drawViewFrames()
 	systemDrawer.drawControls()
 }
