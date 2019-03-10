@@ -4,7 +4,7 @@
     "weapon":"sabre",
     "bodyparts":
     [
-      "kéz", "hegy", "láb"
+      "kéz", "hegy", "láb", "állás"
     ],
 	"participants" : ["mester", "tanítvány"]
   },
@@ -12,7 +12,7 @@
   "techniques" : [
     {
       "name" : "szekond gard",
-      "assertions" : {"kéz" : "1. kézállás"},
+      "assertions" : {"kéz" : "1. kézállás", "állás" : "szekond gard"},
       "invokes" : [],
       "note" : ""
     },
@@ -24,7 +24,13 @@
     },
     {
       "name" : "szekond invito",
-      "assertions" : {"kéz" : "1. kézállás"},
+      "assertions" : {"kéz" : "1. kézállás", "állás" : "szekond invito"},
+      "invokes" : [],
+      "note" : ""
+    },
+	{
+      "name" : "terc invito",
+      "assertions" : {"kéz" : "2. kézállás", "állás" : "terc invito"},
       "invokes" : [],
       "note" : ""
     },
@@ -60,16 +66,75 @@
 		  {
 			"actor" : "tanítvány",
 			"actions" : ["külső elütés","ugrásroham"],
+			"assertions" : {},
 			"note" : ""
 		  },
 		  {
 			"actor" : "tanítvány",
 			"actions" : ["alsó egyenes szúrás"],
+			"assertions" : {},
 			"note" : ""
 		  },
 		  {
 			"actor" : "mester",
 			"actions" : ["szekond védés"],
+			"assertions" : {},
+			"note" : "opponál"
+		  }
+		]
+	},
+	{
+	  "name" : "Conflict in first step",
+	  "init" : {
+		"mester" : "szekond gard",
+		"tanítvány" : "szekond gard",
+		"note" : ["rendes távolság"]
+	  },
+	  "flow" : [
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"assertions" : {},
+			"note" : "Az elütést kívülről, lefelé végezzük"
+		  },
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["alsó egyenes szúrás"],
+			"assertions" : {},
+			"note" : ""
+		  },
+		  {
+			"actor" : "mester",
+			"actions" : ["szekond védés"],
+			"assertions" : {},
+			"note" : "opponál"
+		  }
+		]
+	},
+	{
+	  "name" : "Conflict in first step resolved",
+	  "init" : {
+		"mester" : "szekond gard",
+		"tanítvány" : "szekond gard",
+		"note" : ["rendes távolság"]
+	  },
+	  "flow" : [
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"assertions" : {"kéz" : "2. kézállás", "állás" : "terc invito"},
+			"note" : "Az elütést kívülről, lefelé végezzük"
+		  },
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["alsó egyenes szúrás"],
+			"assertions" : {},
+			"note" : ""
+		  },
+		  {
+			"actor" : "mester",
+			"actions" : ["szekond védés"],
+			"assertions" : {},
 			"note" : "opponál"
 		  }
 		]

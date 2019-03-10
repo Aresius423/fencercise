@@ -11,6 +11,9 @@ class SystemData {
 		
 		this.activeExercise = null
 		this.exerciseStep = -1
+		
+		//this.traceback = {[this.p0name]: {}, [this.p1name]: {}}
+		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
 	}
 	
 	instantiateDrawer(){
@@ -38,6 +41,7 @@ class SystemData {
 	
 	initExercise(){
 		this.exerciseStep = -1
+		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
 		systemDrawer.clearViewFrames()
 		this.checkButtons()
 		
@@ -56,10 +60,13 @@ class SystemData {
 	
 	stepExercise(){
 		this.exerciseStep++
+		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
+		
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
 		systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
 		systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
 		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action))
+		
 		this.checkButtons()
 	}
 	
@@ -91,16 +98,36 @@ class SystemData {
 			this.stepExercise();
 	}
 	
-	performAction(actor, action){
+	performAction(actor, action, trace = []){
 		console.log(`${actor} is performing ${action}`)
 		let actionItem = this.techniques.find(t => t.name === action)
 		if(actionItem){			
-			Object.keys(actionItem.assertions).forEach(part => 
-				systemDrawer.updatePart(actor, part, actionItem.assertions[part])
-			)
+			if(actionItem.assertions){
+				Object.keys(actionItem.assertions).forEach(part => {
+					if(this.stepTrace[actor][part]) {
+						//this part has been updated in this step - check for discrepancy
+						if(!this.stepTrace[actor][part].includes(actionItem.assertions[part])){
+							//discrepancy detected
+							systemDrawer.setPartInvalid(actor, part)
+							this.stepTrace[actor][part].push(actionItem.assertions[part])
+						}
+						
+						this.stepTrace[actor][`${part}-trace`].push(trace.concat(action))
+					}
+					else {
+						//everything is hunky-dory
+						this.stepTrace[actor][part] = [actionItem.assertions[part]]
+						this.stepTrace[actor][`${part}-trace`] = [trace.concat(action)]
+						systemDrawer.setPartValid(actor, part)
+					}
+					
+					systemDrawer.updatePart(actor, part, this.stepTrace[actor][part], this.stepTrace[actor][`${part}-trace`])
+				}
+			)}
 			
-			if(actionItem.invokes)
-				actionItem.invokes.forEach(invokedAction => this.performAction(actor, invokedAction))
+			if(actionItem.invokes){
+				actionItem.invokes.forEach(invokedAction => this.performAction(actor, invokedAction, trace.concat(action)))
+			}
 		}
 		else{
 			console.log(`unknown technique - ${action}`)

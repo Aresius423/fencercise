@@ -27,7 +27,8 @@ class SimpleViewDrawer{
 		return tableHeader + participantParts.map(el => {
 			let partname = tagwrap('td', el["part"])
 			let partstatus = tagwrap('td', "", {id:el["id"], classname:"widecol bodypartstatus"})
-			return tagwrap('tr', partname + partstatus)
+			let parttrace = tagwrap('td', "", {id:el["id"]+"-trace", classname:"widecol bodyparttrace"})
+			return tagwrap('tr', partname + partstatus + parttrace)
 		}).join("\n") + '<br><br>'
 	}
 	
@@ -38,6 +39,11 @@ class SimpleViewDrawer{
 	
 	clearViewFrames(){
 		Array.from(document.getElementsByClassName("bodypartstatus"))
+			.forEach(el => {
+				el.innerHTML = ''
+				el.classList.remove("invalid")
+			})
+		Array.from(document.getElementsByClassName("bodyparttrace"))
 			.forEach(el => el.innerHTML = '')
 	}
 	
@@ -48,8 +54,18 @@ class SimpleViewDrawer{
 			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
 	}
 	
-	updatePart(actor, part, value){
-		document.getElementById(idGenerator(actor, part)).innerHTML=value
+	updatePart(actor, part, value, trace){
+		let partid = idGenerator(actor, part)
+		document.getElementById(partid).innerHTML = value.join("<br>")
+		document.getElementById(`${partid}-trace`).innerHTML = trace.join("<br>")
+	}
+	
+	setPartValid(actor, part){
+		document.getElementById(idGenerator(actor,part)).classList.remove("invalid")
+	}
+	
+	setPartInvalid(actor, part){
+		document.getElementById(idGenerator(actor,part)).classList.add("invalid")
 	}
 	
 	enableElement(elname){
