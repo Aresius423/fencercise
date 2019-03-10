@@ -14,10 +14,7 @@ class SystemData {
 		
 		//this.traceback = {[this.p0name]: {}, [this.p1name]: {}}
 		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
-	}
-	
-	instantiateDrawer(){
-		return new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
+		this.systemDrawer = new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
 	}
 	
 	listExercises(){
@@ -27,7 +24,7 @@ class SystemData {
 	
 	loadExercise(exerciseNumber){
 		this.activeExercise = this.exercises[exerciseNumber]
-		document.getElementById("exercise-title").innerHTML = this.activeExercise.name
+		this.systemDrawer.updateExercise(this.activeExercise)
 		this.initExercise()
 	}
 	
@@ -42,16 +39,16 @@ class SystemData {
 	initExercise(){
 		this.exerciseStep = -1
 		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
-		systemDrawer.clearViewFrames()
-		this.checkButtons()
+		this.systemDrawer.clearViewFrames()
+		this.updateProgress()
 		
 		let p0init = this.setupActor(this.p0name)
 		let p1init = this.setupActor(this.p1name)
 		let note = this.activeExercise.init["note"]
 		let noteText = note?note:""
 		
-		systemDrawer.displayAction(`${p0init}${p1init}`)
-		systemDrawer.displayNote(noteText)
+		this.systemDrawer.displayAction(`${p0init}${p1init}`)
+		this.systemDrawer.displayNote(noteText)
 	}
 	
 	unstepExercise(){
@@ -63,34 +60,16 @@ class SystemData {
 		this.stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
 		
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
-		systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
-		systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
+		this.systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
+		this.systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
 		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action))
 		this.runAssertions(currentStep.actor, currentStep.assertions)
 		
-		this.checkButtons()
+		this.updateProgress()
 	}
 	
-	checkButtons(){
-		if(this.activeExercise) {
-			if(this.exerciseStep < this.activeExercise.flow.length - 1)
-				systemDrawer.enableElement("next")
-			else
-				systemDrawer.disableElement("next")
-			
-			if(this.exerciseStep >= 0)
-				systemDrawer.enableElement("previous")
-			else
-				systemDrawer.disableElement("previous")
-			
-			systemDrawer.enableElement("reset")
-		}
-		else {
-			systemDrawer.disableElement("next")
-			systemDrawer.disableElement("previous")
-			systemDrawer.disableElement("reset")
-		}
-			
+	updateProgress(){
+		this.systemDrawer.updateProgess(this.exerciseStep, this.activeExercise.flow.length)
 	}
 	
 	setExerciseStage(exerciseStep){
@@ -104,8 +83,8 @@ class SystemData {
 		
 		if(assertions){
 			Object.keys(assertions).forEach(part => {
-				systemDrawer.setPartValid(actor, part)
-				systemDrawer.updatePart(actor, part, [assertions[part]], [`explicit: ${part} - ${assertions[part]}`])
+				this.systemDrawer.setPartValid(actor, part)
+				this.systemDrawer.updatePart(actor, part, [assertions[part]], [`explicit: ${part} - ${assertions[part]}`])
 			})
 		}
 	}
@@ -120,7 +99,7 @@ class SystemData {
 						//this part has been updated in this step - check for discrepancy
 						if(!this.stepTrace[actor][part].includes(actionItem.assertions[part])){
 							//discrepancy detected
-							systemDrawer.setPartInvalid(actor, part)
+							this.systemDrawer.setPartInvalid(actor, part)
 							this.stepTrace[actor][part].push(actionItem.assertions[part])
 						}
 						
@@ -130,10 +109,10 @@ class SystemData {
 						//everything is hunky-dory
 						this.stepTrace[actor][part] = [actionItem.assertions[part]]
 						this.stepTrace[actor][`${part}-trace`] = [trace.concat(action)]
-						systemDrawer.setPartValid(actor, part)
+						this.systemDrawer.setPartValid(actor, part)
 					}
 					
-					systemDrawer.updatePart(actor, part, this.stepTrace[actor][part], this.stepTrace[actor][`${part}-trace`])
+					this.systemDrawer.updatePart(actor, part, this.stepTrace[actor][part], this.stepTrace[actor][`${part}-trace`])
 				}
 			)}
 			

@@ -54,6 +54,23 @@ class SimpleViewDrawer{
 			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
 	}
 	
+	updateExercise(exercise){
+		document.getElementById("exercise-title").innerHTML = exercise.name
+	}
+	
+	updateProgess(currentStep, numberOfSteps, controlEnabled = true){
+		if(controlEnabled) {
+			this.setElementEnabled("next", (currentStep < numberOfSteps - 1))
+			this.setElementEnabled("previous", (currentStep >= 0))
+			this.setElementEnabled("reset", true)
+		}
+		else {
+			this.setElementEnabled("next", false)
+			this.setElementEnabled("previous", false)
+			this.setElementEnabled("reset", false)
+		}
+	}
+	
 	updatePart(actor, part, value, trace){
 		let partid = idGenerator(actor, part)
 		document.getElementById(partid).innerHTML = value.join("<br>")
@@ -68,12 +85,8 @@ class SimpleViewDrawer{
 		document.getElementById(idGenerator(actor,part)).classList.add("invalid")
 	}
 	
-	enableElement(elname){
-		document.getElementById(`${elname}button`).disabled = false
-	}
-	
-	disableElement(elname){
-		document.getElementById(`${elname}button`).disabled = true
+	setElementEnabled(elname, flipper){
+		document.getElementById(`${elname}button`).disabled = !flipper
 	}
 	
 	displayAction(action){
