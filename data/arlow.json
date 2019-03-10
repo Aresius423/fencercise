@@ -4,18 +4,112 @@
     "weapon":"sabre",
     "bodyparts":
     [
-      "kéz", "hegy", "láb", "állás"
+      "kéz", "hegy", "láb", "állás", "alkar", "kard"
     ],
 	"participants" : ["mester", "tanítvány"]
   },
   
   "techniques" : [
     {
+	  "name" : "terc gard",
+	  "assertions" : {
+		"kard" : "felső vonal",
+		"hegy" : "ellenfél arca",
+		"kéz" : "2/3. kézállás",
+		"alkar" : "vízszintes",
+		"állás" : "terc gard"},
+		"invokes" : [],
+		"note" : "Ez a gard a támadásra és a védésre egyaránt alkalmas. Minthogy úgy a kart, mint a külső arcot is fedezi, igen alkalmas arra, hogy támadásunk után az első pillanatban e vívóállásba menjünk vissza, illetve a szekond-gardot (esetleg a védéseket is) ezen a gardon keresztülmenve vegyük.",
+		"alias" : ["gard", "állás"],
+		"images" : ["arlow/terc.png", "arlow/terc_2.png"]
+	},
+	{
       "name" : "szekond gard",
-      "assertions" : {"kéz" : "1. kézállás", "állás" : "szekond gard"},
-      "invokes" : [],
-      "note" : ""
+      "assertions" : {
+		"kéz" : "1/2. kézállás",
+		"állás" : "szekond gard",
+		"hegy" : "ellenfél csípője",
+		"alkar" : "vízszintes"},
+      "note" : "Ha bármily okból a védésre akarjuk vívás közben a súlyt helyezni, jobb kiinduló állást találunk a szekond-gardban.",
+	  "images" : ["arlow/szekond.png", "arlow/szekond_2.png"]
     },
+	{
+      "name" : "előre-lépés",
+      "assertions" : {"láb":"két lábhossz távolságban"},
+      "note" : "Vívóállásból jobb lábunkkal változatlan felső testtartás mellett, körülbelül egy lábhosszra, előre, a sarokra lépünk, aztán bal lábunkkal ugyanannyival utána lépünk és könnyű dobbantással reánehezedünk. A lépés a szükséghez képest rövidebb vagy hosszabb lehet, de mindig meglepően és gyorsan kell véghezvinni.",
+	  "alias" : ["passe en avant", "passo avanti"]
+    },
+	{
+      "name" : "kitörés",
+      "assertions" : {"láb":"kitörés"},
+	  "alias" : ["allonge"],
+	  "note" : "A vívó bal lábát térdben hirtelen kifeszíti és egyidejűleg változatlan tartású felső testtel, jobb lábával, ezt térdben erélyesen kinyújtva, mintegy két lábnyira előre, sarokra lép. A jobb alsó lábszár függélyes helyzetben marad, a két láb viszonya a vívóvonalhoz éppen olyan, mint a vívóállásnál.",
+	  "images" : ["arlow/23.png", "arlow/22.png"]
+    },
+	{
+	  "name" : "felkelés kitörésből",
+	  "assertions" : {"láb":"két lábhossz távolságban"},
+	  "note" : "Kitörésünkből rendes körülmények közt azonnal visszahúzódunk a vívóállásba, még pedig úgy, hogy jobb lábunk sarkában kellő fékezést találva, testünket a bal comb izmai segélyével a vívóállásba visszarántjuk, jobb lábunkat pedig ismét könnyű sarokdobbantással a vívóállásba visszahozva, letesszük. Hátra kitörés után szintén a visszatérés a vívóállásba épen úgy hátrafelé történik, mint a rendes kitörésből.",
+	  "images" : ["arlow/25.png"]
+	},
+	{
+      "name" : "hátra-lépés",
+      "assertions" : {"láb":"két lábhossz távolságban"},
+      "note" : " a vívóállásból bal lábunkkal, változatlan tartású test mellett, egy lábhossznyira hátralépünk és jobb lábunkat ugyan-annyival, hátrahozva, egy könnyű sarokdobbantással letesszük.",
+	  "alias" : ["passe en arriére", "passo indietro"]
+    },
+	{
+	  "name" : "lépés-roham",
+	  "invokes" : ["kitörés"],
+	  "alias" : ["marche forcée", "pattinato"],
+	  "note" : "A lépés-roham két részből áll: egy előre-lépésből és egy kitörésből. Kivitelénél arra kell ügyelni, hogy a jobb láb előrelépése után bal lábunkat gyorsan utána vigyük, és a vele tett dobbantással kapcsolatban, azonnal ruganyosán kifeszítsük, miáltal az egész roham gyorssá és meglepővé válik. A lépés-roham üteme tehát: [kép]",
+	  "images" : ["arlow/lepesroham_ritmus.png"]
+	},
+	{
+	  "name" : "ugrás-roham",
+	  "invokes" : ["kitörés"],
+	  "alias" : ["balestra"],
+	  "note" : "Az ugrás-roham két részből áll: egy előreugrásból és egy kitörésből. Az ugrást változatlan testtartással, mindkét lábbal egyszerre, akként viszszük ki, hogy az ugrásból (mikor mindkét lábunk a levegőben van) a földre érve, a jobb láb egy pillanattal előbb érje a földet, utána a bal láb érkezik le és ezt tüstént a vele adott dobbantással kapcsolatban, ruganyosán kifeszítjük, és így a teljes kitörést megcsináljuk.",
+	  "images" : ["arlow/ugrasroham_ritmus.png"]
+	},
+	{
+	  "name" : "hátra-kitörés",
+	  "assertions" : {"láb":"kitörés"},
+	  "note" : "A hátra-kitörésnél a rendes kitörés állásába úgy jutunk, hogy nem a jobb lábunkkal lépünk előre, hanem a ballal hátra, egészen a bal térd kifeszítéséig. Akkor szoktuk alkalmazni, amikor ellenfelünk támadását karvágással akarjuk megelőzni."
+	},
+	{
+      "name" : "kettős hátra-lépés",
+      "assertions" : {"láb":"két lábhossz távolságban"},
+      "note" : "A kettős hátra-lépés vívóállásból úgy történik, hogy fejünket és testünket erélyesen hátrarántva, jobb lábunkat a bal sarok mellett hátrahozva, két lábhossznyira e mögé leteszszük, bal lábunkat pedig ismét a rendes vívóállásba hátraviszszük. Leérkezés után jobb lábunk sarkával könnyedén dobbantunk.",
+	  "alias" : ["pár volté romper", "doppio passo indietro"]
+    },
+	{
+      "name" : "hátra-ugrás",
+      "assertions" : {"láb":"két lábhossz távolságban"},
+      "note" : "A hátra-ugrás vívóállásból úgy történik, hogy fejünket és testünket erélyesen hátrarántva, teljes erőnkből visszaugrunk, a lódításhoz főképen bal lábunk izmait használva fel; mindkét láb egy pillanatra a levegőben van, mely idő alatt jobb lábunkat, amennyire csak lehetséges, bal lábunk mögé visszadobjuk úgy, hogy ez körülbelül két lábhosszra a bal láb mögé, a bal láb pedig ismét a rendes vívóállásban elfoglalt helyzetébe kerül. Leérkezés után jobb lábunk sarkával könnyedén dobbantunk, miáltal vívóállásunkat helyrehozzuk, esetleg helyességéről meggyőződünk. Akkor szoktuk alkalmazni, amikor ellenfelünk támadását karvágással akarjuk megelőzni. Hátraugrást alkalmazunk akkor is, ha kardfogásunk bármi okból meglazult, vagy a kardot esetleg elveszítettük, mert ezáltal időt nyerünk a fogás megerősítésére; párbaj alkalmával pedig időt és teret adunk a segédeknek a közbelépésre. Ok nélkül hátraugrani nagy hiba, mert ezáltal a hátrálásra rendelkezésünkre álló terünket, melyre még nagyon rászorulhatunk, szükségtelenül megrövidítettük.",
+	  "alias" : ["salto indietro"]
+    },
+	{
+	  "name" : "ismételt kitörés",
+	  "alias" : ["redoublement", "raddoppio"],
+	  "invokes" : ["kitörés"]
+	},
+	{
+	  "name" : "ismételt ugrás-roham",
+	  "alias" : ["reprise", "ripresa d’ attacco"],
+	  "invokes" : ["ugrás-roham"]
+	},
+	{
+	  "name" : "ismételt lépés-roham",
+	  "alias" : ["reprise", "ripresa d’ attacco"],
+	  "invokes" : ["lépés-roham"]
+	},
+	{
+	  "name" : "beugrás",
+	  "alias" : ["volté", "inquartata"],
+	  "assertions" : {"láb" : "45° alatt a vívóvonaltól jobbra"},
+	  "images" : ["arlow/52.png"]	  
+	},
 	{
       "name" : "szekond védés",
       "assertions" : {},
@@ -24,13 +118,13 @@
     },
     {
       "name" : "szekond invito",
-      "assertions" : {"kéz" : "1. kézállás", "állás" : "szekond invito"},
+      "assertions" : {"kéz" : "1/2. kézállás", "állás" : "szekond invito"},
       "invokes" : [],
       "note" : ""
     },
 	{
       "name" : "terc invito",
-      "assertions" : {"kéz" : "2. kézállás", "állás" : "terc invito"},
+      "assertions" : {"kéz" : "2/3. kézállás", "állás" : "terc invito"},
       "invokes" : [],
       "note" : ""
     },
@@ -48,8 +142,8 @@
     },
 	{
       "name" : "ugrásroham",
-      "assertions" : {"láb":"kitörés"},
-      "invokes" : [],
+      "assertions" : {},
+      "invokes" : ["kitörés"],
       "note" : ""
     }
   ],
