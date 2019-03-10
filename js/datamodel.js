@@ -66,6 +66,7 @@ class SystemData {
 		systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
 		systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
 		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action))
+		this.runAssertions(currentStep.actor, currentStep.assertions)
 		
 		this.checkButtons()
 	}
@@ -96,6 +97,17 @@ class SystemData {
 		this.initExercise()
 		while(this.exerciseStep != exerciseStep)
 			this.stepExercise();
+	}
+	
+	runAssertions(actor, assertions){
+		//assertions are stronger than property changes implied by actions
+		
+		if(assertions){
+			Object.keys(assertions).forEach(part => {
+				systemDrawer.setPartValid(actor, part)
+				systemDrawer.updatePart(actor, part, [assertions[part]], [`explicit: ${part} - ${assertions[part]}`])
+			})
+		}
 	}
 	
 	performAction(actor, action, trace = []){
