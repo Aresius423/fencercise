@@ -57,6 +57,7 @@ class SystemData {
 	stepExercise(){
 		this.exerciseStep++
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
+		systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
 		systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
 		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action))
 		this.checkButtons()
