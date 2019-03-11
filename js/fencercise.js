@@ -3,7 +3,7 @@
 const systems = [{"Lovag Arlow Gusztáv - Kardvívás (1902)":"arlow.json"}];
 
 window.onload = function(){
-	UiDrawer.listSystems()
+	UiDrawer.listSystems(systems)
 }
 
 var loadData = function(filename, exercise=null){

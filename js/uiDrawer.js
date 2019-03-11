@@ -1,10 +1,10 @@
 class UiDrawer{
-	static listSystems(){
-		let systemList = systems.reduce((acc,cur) => 
+	static listSystems(sysList){
+		let systemDomList = sysList.reduce((acc,cur) => 
 			acc + `<li><a onclick="loadData('${cur[Object.keys(cur)[0]]}')" href="#">${Object.keys(cur)[0]}</a></li>\n`
 			,"")
 			
-		document.getElementById("syspick").innerHTML = tagwrap("ul", systemList)
+		document.getElementById("syspick").innerHTML = tagwrap("ul", systemDomList)
 	}
 
 	static listExercises(system){
