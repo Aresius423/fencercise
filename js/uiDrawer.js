@@ -9,28 +9,28 @@ class UiDrawer{
 
 	static listExercises(system){
 		let indexedExercises = system.exercises.map(function(exercise, index){
-			return `<li><a onclick="loadedSystem.loadExercise(${index})" href="#">${exercise.name}</a></li>`
+			return `<li><button id="exercise-${index}-button" class="link">${exercise.name}</button></li>`
 		})
 		
 		document.getElementById("exercisepick").innerHTML = tagwrap("ul", indexedExercises.join('\n'))
+		
+		indexedExercises.forEach(function(_, index){
+			document
+				.getElementById(`exercise-${index}-button`)
+				.addEventListener("click", function(){return system.loadExercise(index)})
+		})
 	}
 	
-	static drawControls(){
+	static drawControls(listener = null){
 		document.getElementById("controlbox").innerHTML = '<br><br>' + 
-			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" disabled />' +
-			'<input id="previousbutton" type="button" value="previous step" onclick="loadedSystem.unstepExercise();" disabled />' +
-			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
-	}
-	
-	static attachResetEvent(func){
-		document.getElementById("resetbutton").addEventListener("click", func)
-	}
-	
-	static attachPreviousEvent(func){
-		document.getElementById("previousbutton").addEventListener("click", func)
-	}
-	
-	static attachNextEvent(func){
-		document.getElementById("nextbutton").addEventListener("click", func)
+			'<input id="resetbutton" type="button" value="reset" disabled />' +
+			'<input id="previousbutton" type="button" value="previous step" disabled />' +
+			'<input id="nextbutton" type="button" value="next step" disabled />'
+			
+		if(listener){
+			document.getElementById("resetbutton").addEventListener("click", listener)
+			document.getElementById("previousbutton").addEventListener("click", listener)
+			document.getElementById("nextbutton").addEventListener("click", listener)
+		}
 	}
 }

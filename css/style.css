@@ -40,3 +40,9 @@ tr, td {
 .container {
 	width: 100%;
 }
+
+button.link {
+	background:none;
+	border:none;
+	color:blue;
+}

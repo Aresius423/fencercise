@@ -206,6 +206,40 @@
 		]
 	},
 	{
+	  "name" : "Conflict in first step overwritten by second step",
+	  "init" : {
+		"mester" : "szekond gard",
+		"tanítvány" : "szekond gard",
+		"note" : ["rendes távolság"]
+	  },
+	  "flow" : [
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"assertions" : {},
+			"note" : "Az elütést kívülről, lefelé végezzük"
+		  },
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["szekond invito"],
+			"assertions" : {},
+			"note" : "Tanítvány rájön, hogy szekond invitoba kellett volna érkeznie"
+		  },
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["alsó egyenes szúrás"],
+			"assertions" : {},
+			"note" : ""
+		  },
+		  {
+			"actor" : "mester",
+			"actions" : ["szekond védés"],
+			"assertions" : {},
+			"note" : "opponál"
+		  }
+		]
+	},
+	{
 	  "name" : "Conflict in first step resolved",
 	  "init" : {
 		"mester" : "szekond gard",

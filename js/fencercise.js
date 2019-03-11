@@ -28,7 +28,7 @@ var parseData = function(data, exercise=null){
 	let systemController = new SystemController(newSystem)
 	let simpleViewDrawer = new SimpleViewDrawer(systemController)
 	
-	newSystem.subscribe(simpleViewDrawer.redrawModel)
+	newSystem.subscribe(simpleViewDrawer)
 	
 	UiDrawer.listExercises(newSystem);
 }

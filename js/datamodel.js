@@ -1,21 +1,26 @@
 class SystemData {
 	constructor(rawData){
 		this.subscribers = []
+		this.notificationsEnabled = true
+		
 		let jsData = JSON.parse(rawData)
 		
 		this.system = jsData["system"]
 		this.techniques = jsData["techniques"]
 		this.exercises = jsData["exercises"]
 		
-		this.p0name = this.system.participants[0]
-		this.p1name = this.system.participants[1]
-		
 		this.activeExercise = null
 		this.exerciseStep = -1
 		
-		this.exerciseTrace = {[this.p0name]: {}, [this.p1name]: {}}
-		this.systemDrawer = new SimpleViewDrawer(this.system.participants, this.system.bodyparts)
+		//data for external processing
+		
+		this.exerciseTrace = this.defaultTrace()
+		this.activeInstructions = ""
+		this.activeNote = ""
 	}
+	
+	enableNotifications(){this.notificationsEnabled = true}
+	disableNotifications(){this.notificationsEnabled = false}
 	
 	subscribe(subscriber){
 		if(!this.subscribers.includes(subscriber)){
@@ -28,12 +33,13 @@ class SystemData {
 	}
 	
 	notifyAll(){
-		this.subscribers.forEach(sub => sub.call(this))
+		if(this.notificationsEnabled){
+			this.subscribers.forEach(sub => sub.update(this))	
+		}
 	}
 	
 	loadExercise(exerciseNumber){
 		this.activeExercise = this.exercises[exerciseNumber]
-		//this.systemDrawer.updateExercise(this.activeExercise)
 		this.initExercise()
 		
 		this.notifyAll()
@@ -41,62 +47,81 @@ class SystemData {
 	
 	setupActor(actorName){
 		let action = this.activeExercise.init[actorName]
+		let stepTrace = this.defaultTrace()
 		if(action)
-			this.performAction(actorName, action)
+			this.performAction(actorName, action, stepTrace)
+		
+		this.updateExerciseTrace(stepTrace)
 		
 		return action?`${actorName}: ${action}<br>`:""
 	}
 	
 	initExercise(){
 		this.exerciseStep = -1
-		this.exerciseTrace = {[this.p0name]: {}, [this.p1name]: {}}
+		this.exerciseTrace = this.defaultTrace()
+		this.activeInstructions = ""
 		
-		let p0init = this.setupActor(this.p0name)
-		let p1init = this.setupActor(this.p1name)
+		for(let actor of this.system.participants){
+			this.activeInstructions += this.setupActor(actor)
+		}
 		let note = this.activeExercise.init["note"]
-		let noteText = note?note:""
 		
-		//this.systemDrawer.displayAction(`${p0init}${p1init}`)
-		//this.systemDrawer.displayNote(noteText)
+		this.activeNote = note?note:""
 		
-		notifyAll()
+		this.notifyAll()
 	}
 	
 	unstepExercise(){
 		this.setExerciseStage(this.exerciseStep-1)
-		
-		notifyAll()
 	}
 	
 	stepExercise(){
 		this.exerciseStep++
-		let stepTrace = {[this.p0name]: {}, [this.p1name]: {}}
-		
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
-		this.systemDrawer.displayNote(currentStep.note ? currentStep.note : "")
-		this.systemDrawer.displayAction(`${currentStep.actor}: ${currentStep.actions.join(", ")}`)
-		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action, stepTrace))
-		this.runAssertions(currentStep.actor, currentStep.assertions)
 		
-		notifyAll()
+		let stepTrace = this.defaultTrace()
+		this.activeInstructions = `${currentStep.actor}: ${currentStep.actions.join(", ")}`
+		this.activeNote = currentStep.note ? currentStep.note : ""
+		
+		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action, stepTrace))
+		this.runAssertions(currentStep.actor, currentStep.assertions, stepTrace)
+		
+		this.updateExerciseTrace(stepTrace)
+		
+		this.notifyAll()
 	}
-		//this.systemDrawer.updateProgess(this.exerciseStep, this.activeExercise.flow.length)
+	
+	updateExerciseTrace(stepTrace){
+		let mergedTrace = this.exerciseTrace
+		for(let actor of this.system.participants){
+			for(let part of Object.keys(stepTrace[actor])){
+				mergedTrace[actor][part] = stepTrace[actor][part]
+			}
+		}
+		
+		this.exerciseTrace = mergedTrace
+	}
 	
 	setExerciseStage(exerciseStep){
 		this.initExercise()
+		
+		this.disableNotifications()
+		
 		while(this.exerciseStep != exerciseStep)
 			this.stepExercise();
 		
-		notifyAll()
+		this.enableNotifications()
+		
+		this.notifyAll()
 	}
 	
-	runAssertions(actor, assertions){
+	runAssertions(actor, assertions, stepTrace){
 		//assertions are stronger than property changes implied by actions
 		
 		if(assertions){
 			Object.keys(assertions).forEach(part => {
-				this.systemDrawer.setPartValid(actor, part)
-				this.systemDrawer.updatePart(actor, part, [assertions[part]], [`explicit: ${part} - ${assertions[part]}`])
+				stepTrace[actor][part] = 
+					{"value":[assertions[part]], "valid":true, "trace":[`explicit: ${part} - ${assertions[part]}`]}
 			})
 		}
 	}
@@ -109,31 +134,30 @@ class SystemData {
 				Object.keys(actionItem.assertions).forEach(part => {
 					if(stepTrace[actor][part]) {
 						//this part has been updated in this step - check for discrepancy
-						if(!stepTrace[actor][part].includes(actionItem.assertions[part])){
+						if(!stepTrace[actor][part]["value"].includes(actionItem.assertions[part])){
 							//discrepancy detected
-							this.systemDrawer.setPartInvalid(actor, part)
-							stepTrace[actor][part].push(actionItem.assertions[part])
+							stepTrace[actor][part]["valid"]=false
+							stepTrace[actor][part]["value"].push(actionItem.assertions[part])
 						}
-						
-						stepTrace[actor][`${part}-trace`].push(trace.concat(action))
+						stepTrace[actor][part]["trace"].push(trace.concat(action))
 					}
 					else {
 						//everything is hunky-dory
-						stepTrace[actor][part] = [actionItem.assertions[part]]
-						stepTrace[actor][`${part}-trace`] = [trace.concat(action)]
-						this.systemDrawer.setPartValid(actor, part)
+						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "valid":true, "trace":[trace.concat(action)]}
 					}
-					
-					this.systemDrawer.updatePart(actor, part, stepTrace[actor][part], stepTrace[actor][`${part}-trace`])
 				}
 			)}
 			
 			if(actionItem.invokes){
-				actionItem.invokes.forEach(invokedAction => this.performAction(actor, invokedAction, trace.concat(action)))
+				actionItem.invokes.forEach(invokedAction => this.performAction(actor, invokedAction, stepTrace, trace.concat(action)))
 			}
 		}
 		else{
 			console.log(`unknown technique - ${action}`)
 		}
+	}
+	
+	defaultTrace(){
+		return {[this.system.participants[0]]: {}, [this.system.participants[1]]: {}}
 	}
 }
