@@ -9,13 +9,31 @@ var idGenerator = function(participantName, partName){
 }
 
 class SimpleViewDrawer{
-	constructor(participants, bodyparts){
+	constructor(participants, bodyparts, controller){
+		this.controller = controller
 		this.p0name = participants[0]
 		this.p1name = participants[1]
 		this.parts = bodyparts
 		
 		this.drawViewFrames()
 		this.drawControls()
+	}
+	
+	redrawModel(model){
+		//notification
+		
+		
+		//update buttons
+		if(model.activeExercise){
+			this.setElementEnabled("next", (model.exerciseStep < model.exercises.length - 1))
+			this.setElementEnabled("previous", (model.exerciseStep >= 0))
+			this.setElementEnabled("reset", true)
+		}
+		else {
+			this.setElementEnabled("next", false)
+			this.setElementEnabled("previous", false)
+			this.setElementEnabled("reset", false)
+		}
 	}
 	
 	participantTable(participantName){
@@ -47,11 +65,28 @@ class SimpleViewDrawer{
 			.forEach(el => el.innerHTML = '')
 	}
 	
+	resetButtonClicked(){
+		this.controller.requestReset()
+	}
+	
+	previousButtonClicked(){
+		this.controller.requestPrevious()
+	}
+	
+	nextButtonClicked(){
+		this.controller.requestNext()
+	}
+	
 	drawControls(){
 		document.getElementById("controlbox").innerHTML = '<br><br>' + 
 			'<input id="resetbutton" type="button" value="reset" onclick="loadedSystem.initExercise();" disabled />' +
 			'<input id="previousbutton" type="button" value="previous step" onclick="loadedSystem.unstepExercise();" disabled />' +
 			'<input id="nextbutton" type="button" value="next step" onclick="loadedSystem.stepExercise();" disabled />'
+			
+		UiDrawer.drawControls()
+		UiDrawer.attachResetEvent(this.resetButtonClicked)
+		UiDrawer.attachPreviousEvent(this.previousButtonClicked)
+		UiDrawer.attachNextEvent(this.nextButtonClicked)
 	}
 	
 	updateExercise(exercise){

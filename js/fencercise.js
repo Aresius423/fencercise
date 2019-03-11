@@ -2,8 +2,6 @@
 
 const systems = [{"Lovag Arlow Gusztáv - Kardvívás (1902)":"arlow.json"}];
 
-var loadedSystem = null //todo: remove
-
 window.onload = function(){
 	UiDrawer.listSystems()
 }
@@ -27,6 +25,10 @@ var loadData = function(filename, exercise=null){
 
 var parseData = function(data, exercise=null){
 	let newSystem = new SystemData(data)
-	loadedSystem = newSystem
+	let systemController = new SystemController(newSystem)
+	let simpleViewDrawer = new SimpleViewDrawer(systemController)
+	
+	newSystem.subscribe(simpleViewDrawer.redrawModel)
+	
 	UiDrawer.listExercises(newSystem);
 }
