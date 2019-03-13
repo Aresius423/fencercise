@@ -121,7 +121,8 @@ class SystemData {
 		if(assertions){
 			Object.keys(assertions).forEach(part => {
 				stepTrace[actor][part] = 
-					{"value":[assertions[part]], "valid":true, "trace":[`explicit: ${part} - ${assertions[part]}`]}
+					{"value":[assertions[part]], "status":"assertion", "trace":[`explicit: ${part} - ${assertions[part]}`]}
+				this.activeInstructions += `<br>${part} : ${assertions[part]}`
 			})
 		}
 	}
@@ -136,14 +137,14 @@ class SystemData {
 						//this part has been updated in this step - check for discrepancy
 						if(!stepTrace[actor][part]["value"].includes(actionItem.assertions[part])){
 							//discrepancy detected
-							stepTrace[actor][part]["valid"]=false
+							stepTrace[actor][part]["status"]="invalid"
 							stepTrace[actor][part]["value"].push(actionItem.assertions[part])
 						}
 						stepTrace[actor][part]["trace"].push(trace.concat(action))
 					}
 					else {
 						//everything is hunky-dory
-						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "valid":true, "trace":[trace.concat(action)]}
+						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "status":"valid", "trace":[trace.concat(action)]}
 					}
 				}
 			)}

@@ -64,6 +64,7 @@ class SimpleViewDrawer{
 			.forEach(el => {
 				el.innerHTML = ''
 				el.classList.remove("invalid")
+				el.classList.remove("assert")
 			})
 		Array.from(document.getElementsByClassName("bodyparttrace"))
 			.forEach(el => el.innerHTML = '')
@@ -93,19 +94,16 @@ class SimpleViewDrawer{
 				
 				domElement.innerHTML = currentPart["value"].join("<br>")
 				domTraceElement.innerHTML = currentPart["trace"].join("<br>")
-				this.setPartValid(domElement, currentPart["valid"])
+				this.setPartValid(domElement, currentPart["status"])
 				
 			}
 		}
 	}
 	
-	setPartValid(domElement, isValid = true){
-		if(isValid){
-			domElement.classList.remove("invalid")
-		}
-		else {
-			domElement.classList.add("invalid")
-		}
+	setPartValid(domElement, partStatus){
+		domElement.classList.remove("invalid", "assert", "valid")
+		
+		domElement.classList.add(partStatus)
 	}
 	
 	setButtonEnabled(elname, flipper){
