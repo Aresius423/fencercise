@@ -78,6 +78,7 @@ class SystemData {
 	stepExercise(){
 		this.exerciseStep++
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
+		this.setAssertionsValid()
 		
 		let stepTrace = this.defaultTrace()
 		this.activeInstructions = `${currentStep.actor}: ${currentStep.actions.join(", ")}`
@@ -89,6 +90,16 @@ class SystemData {
 		this.updateExerciseTrace(stepTrace)
 		
 		this.notifyAll()
+	}
+	
+	setAssertionsValid(){
+		for(let actor of this.system.participants){
+			for(let part of Object.keys(this.exerciseTrace[actor])){
+				if(this.exerciseTrace[actor][part]["status"] == "assertion"){
+					this.exerciseTrace[actor][part]["status"] = "valid"
+				}
+			}
+		}
 	}
 	
 	updateExerciseTrace(stepTrace){
@@ -140,11 +151,11 @@ class SystemData {
 							stepTrace[actor][part]["status"]="invalid"
 							stepTrace[actor][part]["value"].push(actionItem.assertions[part])
 						}
-						stepTrace[actor][part]["trace"].push(trace.concat(action))
+						stepTrace[actor][part]["trace"].push(trace.concat(action).join(" \u2192 "))
 					}
 					else {
 						//everything is hunky-dory
-						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "status":"valid", "trace":[trace.concat(action)]}
+						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "status":"valid", "trace":[trace.concat(action).join(" \u2192 ")]}
 					}
 				}
 			)}

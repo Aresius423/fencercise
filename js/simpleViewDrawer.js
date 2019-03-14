@@ -63,8 +63,7 @@ class SimpleViewDrawer{
 		Array.from(document.getElementsByClassName("bodypartstatus"))
 			.forEach(el => {
 				el.innerHTML = ''
-				el.classList.remove("invalid")
-				el.classList.remove("assert")
+				el.classList.remove("invalid", "assertion", "valid")
 			})
 		Array.from(document.getElementsByClassName("bodyparttrace"))
 			.forEach(el => el.innerHTML = '')
@@ -101,7 +100,7 @@ class SimpleViewDrawer{
 	}
 	
 	setPartValid(domElement, partStatus){
-		domElement.classList.remove("invalid", "assert", "valid")
+		domElement.classList.remove("invalid", "assertion", "valid")
 		
 		domElement.classList.add(partStatus)
 	}
