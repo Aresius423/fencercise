@@ -3,8 +3,8 @@ class SystemController{
 		this.system = system
 	}
 	
-	requestReset(){
-		this.system.initExercise()
+	requestSet(value){
+		this.system.setExerciseStage(value)
 	}
 	
 	requestPrevious(){

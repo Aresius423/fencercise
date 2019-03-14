@@ -7,14 +7,23 @@ var tagwrap = function(tag, content, {id,classname}={}){
 class SimpleViewDrawer{
 	constructor(controller){
 		this.controller = controller
+		this.prevEnabled = false
+		this.nextEnabled = false
+		
+		UiDrawer.subscribeKeydown(this)
+	}
+	
+	destroy(){
+		UiDrawer.unsubscribeKeydown(this)
 	}
 	
 	update(model){
 		//notification
-		if(model.exerciseStep == -1){
+		if(model.loadStatus == "firstload"){
 			this.drawViewFrames(model)
-			document.getElementById("exercise-title").innerHTML = model.activeExercise.name
+			document.getElementById("exercise-title").innerHTML = tagwrap("center", model.activeExercise.name)
 			UiDrawer.drawControls(this)
+			UiDrawer.setupSlider(model.activeExercise.flow.length)
 		}
 		
 		//update parts
@@ -24,16 +33,17 @@ class SimpleViewDrawer{
 		
 		//update buttons
 		if(model.activeExercise){			
-			this.setButtonEnabled("next", (model.exerciseStep < model.activeExercise.flow.length - 1))
-			this.setButtonEnabled("previous", (model.exerciseStep >= 0))
-			this.setButtonEnabled("reset", true)
+			this.setNextEnabled(model.exerciseStep < model.activeExercise.flow.length - 1)
+			this.setPrevEnabled(model.exerciseStep >= 0)
 		}
 		else {
-			this.setButtonEnabled("next", false)
-			this.setButtonEnabled("previous", false)
-			this.setButtonEnabled("reset", false)
+			this.setNextEnabled(false)
+			this.setPrevEnabled(false)
 		}
+		
+		UiDrawer.moveSlider(model.exerciseStep)
 	}
+	
 	
 	static idGenerator(participantName, partName){
 		return `${participantName}-${partName.replace(/\s/g,'')}`
@@ -55,8 +65,8 @@ class SimpleViewDrawer{
 	
 	drawViewFrames(model){
 		let parts = model.system.bodyparts
-		document.getElementById("participant-0-frame").innerHTML = tagwrap("table", this.participantTable(model.system.participants[0], parts))
-		document.getElementById("participant-1-frame").innerHTML = tagwrap("table", this.participantTable(model.system.participants[1], parts))
+		document.getElementById("participant-0-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[0], parts)))
+		document.getElementById("participant-1-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[1], parts)))
 	}
 	
 	clearViewFrames(){
@@ -69,18 +79,43 @@ class SimpleViewDrawer{
 			.forEach(el => el.innerHTML = '')
 	}
 	
-	handleEvent(event){		
+	handleEvent(event){
+		let handle = `on${event.type}`
+		if(this[handle])
+			this[handle](event)
+	}
+	
+	onkeydown(event){
+		switch(event.which){
+			case 68:
+			case 102:
+			case 39:
+				if(this.nextEnabled)
+					this.controller.requestNext()
+				break
+				
+			case 65:
+			case 100:
+			case 37:
+				if(this.prevEnabled)
+					this.controller.requestPrevious()
+				break
+		}
+	}
+	
+	onclick(event){
 		switch(event.target.id){
-			case "resetbutton":
-				this.controller.requestReset()
-				break;
 			case "previousbutton":
 				this.controller.requestPrevious()
-				break;
+				break
 			case "nextbutton":
 				this.controller.requestNext()
-				break;				
+				break				
 		}
+	}
+	
+	oninput(event){
+		this.controller.requestSet(event.target.value)
 	}
 	
 	updateParts(model){
@@ -105,7 +140,13 @@ class SimpleViewDrawer{
 		domElement.classList.add(partStatus)
 	}
 	
-	setButtonEnabled(elname, flipper){
-		document.getElementById(`${elname}button`).disabled = !flipper
+	setPrevEnabled(flipper){
+		this.prevEnabled = flipper
+		document.getElementById('previousbutton').disabled = !flipper
+	}
+	
+	setNextEnabled(flipper){
+		this.nextEnabled = flipper
+		document.getElementById('nextbutton').disabled = !flipper
 	}
 }

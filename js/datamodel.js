@@ -14,6 +14,7 @@ class SystemData {
 		
 		//data for external processing
 		
+		this.loadStatus = "firstload"
 		this.exerciseTrace = this.defaultTrace()
 		this.activeInstructions = ""
 		this.activeNote = ""
@@ -40,9 +41,8 @@ class SystemData {
 	
 	loadExercise(exerciseNumber){
 		this.activeExercise = this.exercises[exerciseNumber]
+		this.loadStatus = "firstload"
 		this.initExercise()
-		
-		this.notifyAll()
 	}
 	
 	setupActor(actorName){
@@ -69,6 +69,8 @@ class SystemData {
 		this.activeNote = note?note:""
 		
 		this.notifyAll()
+		
+		this.loadStatus = "loaded"
 	}
 	
 	unstepExercise(){
@@ -139,7 +141,7 @@ class SystemData {
 	}
 	
 	performAction(actor, action, stepTrace, trace = []){
-		console.log(`${actor} is performing ${action}`)
+		//console.log(`${actor} is performing ${action}`)
 		let actionItem = this.techniques.find(t => t.name === action)
 		if(actionItem){			
 			if(actionItem.assertions){

@@ -21,7 +21,7 @@ tr, td {
 	min-width:100px;
 }
 
-.title {
+#exercise-title {
 	font-size: large;
 }
 
@@ -31,6 +31,36 @@ tr, td {
 
 .notebox {
 	background-color: rgba(238, 208, 0, 0.3);
+}
+
+#controlbox {
+	display: flex;
+}
+
+#stageslider {
+	flex: 1;
+}
+
+#displaybox {
+	max-width: 600px;
+	display: flex;
+	flex-flow: column;
+}
+
+#displaybox > * {
+	margin: 10px;
+}
+
+.pframe {
+	width: 50%;
+}
+
+.pleft {
+	float: left;
+}
+
+.pright {
+	float: right;
 }
 
 .warningbox, .invalid {

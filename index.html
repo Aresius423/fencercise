@@ -10,19 +10,22 @@
 	<div id="syspick"></div>
 	<div id="indentwrapper"><div id="exercisepick" style="margin-left: 5%;"></div></div>
 	
-	<div id="participant-frame-parent" class="container">
-		<div id="participant-0-frame" style="float: left; margin-right: 2%;"></div>
-		<div id="participant-1-frame"></div>
-	</div>
-	
-	<div id="exercise-textbox">
-		<br><div id="exercise-title" class="title"></div><br>
-		<div id="stepdesc" class="stepbox"></div>
-		<div id="stepnote" class="notebox"></div>
-		<div id="warnings" class="warningbox"></div>
-	</div>
+	<div id="displaybox">
+		<div id="exercise-title"></div>
+		<div id="controlbox"></div>
+		<div id="participant-frame-parent" class="container">
+			<div id="participant-0-frame" class="pframe pleft"></div>
+			<div id="participant-1-frame" class="pframe pright"></div>
+		</div>
 		
-	<div id="controlbox"></div>
+		<div id="exercise-textbox">
+			<div id="stepdesc" class="stepbox"></div>
+			<div id="stepnote" class="notebox"></div>
+			<div id="warnings" class="warningbox"></div>
+		</div>
+			
+		
+	</div>
 	
 	<script src="js/controller.js"></script>
 	<script src="js/uiDrawer.js"></script>
