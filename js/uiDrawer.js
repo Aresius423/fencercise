@@ -24,7 +24,7 @@ class UiDrawer{
 	static drawControls(listener){
 		document.getElementById("controlbox").innerHTML = '<br><br>' + 
 			'<input id="previousbutton" type="button" value="\u2190" disabled />' +
-			'<input id="stageslider" type="range" class="stageslider" min="-1"/>' +
+			'<input id="stageslider" type="range" class="stageslider" min="-1" onkeydown="return false"/>' +
 			'<input id="nextbutton" type="button" value="\u2192" disabled />'
 			
 		document.getElementById("previousbutton").addEventListener("click", listener)

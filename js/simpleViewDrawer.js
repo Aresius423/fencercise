@@ -90,15 +90,19 @@ class SimpleViewDrawer{
 			case 68:
 			case 102:
 			case 39:
-				if(this.nextEnabled)
+				if(this.nextEnabled){
 					this.controller.requestNext()
+					event.stopPropagation()
+				}
 				break
 				
 			case 65:
 			case 100:
 			case 37:
-				if(this.prevEnabled)
+				if(this.prevEnabled){
 					this.controller.requestPrevious()
+					event.stopPropagation()
+				}
 				break
 		}
 	}
