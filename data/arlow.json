@@ -111,22 +111,107 @@
 	  "images" : ["arlow/52.png"]	  
 	},
 	{
+	  "name" : "fejvágás",
+	  "assertions" : {"kéz" : "1. kézállás"}
+	},
+	{
+	  "name" : "külső arcvágás",
+	  "assertions" : {"kéz" : "2. kézállás", "kard" : "felső vonal"}
+	  "note" : "éllel jobbra, és egy kicsit felfelé"
+	},
+	{
+	  "name" : "oldalvágás",
+	  "assertions" : {"kéz" : "1/2. kézállás"}
+	},
+	{
+	  "name" : "belső arcvágás",
+	  "assertions" : {"kéz" : "4. kézállás"}
+	},
+	{
+	  "name" : "mellvágás",
+	  "assertions" : {"kéz" : "3/4. kézállás"}
+	},
+	{
+	  "name" : "hasvágás",
+	  "assertions" : {"kéz" : "4/1. kézállás"}
+	},
+	{
+	  "name" : "prim védés",
+	  "invokes" : ["prim invito"]
+	},
+	{
+	  "name" : "prim invito",
+	  "assertions" : {"kéz" : "1/4. kézállás", "állás" : "prim invito"},
+	  "note" : "Fedezi és az oldalt, külső arcot és kart adja ki.",
+	  "images" : ["arlow/prim-invito.png"]
+	}
+	{
       "name" : "szekond védés",
-      "assertions" : {},
       "invokes" : ["szekond invito"],
-      "note" : ""
     },
     {
       "name" : "szekond invito",
       "assertions" : {"kéz" : "1/2. kézállás", "állás" : "szekond invito"},
-      "invokes" : [],
-      "note" : ""
+      "note" : "Az oldalt fedi és az egész fejet és belső oldalt adja ki",
+	  "images" : ["arlow/szekond-invito.png"]
     },
+	{
+	  "name" : "terc védés",
+	  "invokes" : ["terc invito"]
+	}
 	{
       "name" : "terc invito",
       "assertions" : {"kéz" : "2/3. kézállás", "állás" : "terc invito"},
-      "invokes" : [],
-      "note" : ""
+      "note" : "A fej és a kar külső oldalát fedi, ellenben a fejet, a belső arcot, mellet, hasat és oldalt adja ki. A terc-gardtól csak abban különbözik, hogy a kardhegye nem a vonalon, hanem attól egy arasznyira jobbra van.",
+	  "images" : ["arlow/terc-invito.png"]
+    },
+	{
+	  "name" : "kvart védés",
+	  "invokes" : ["kvart invito"]
+	}
+	{
+      "name" : "kvart invito",
+      "assertions" : {"kéz" : "3/4. kézállás", "állás" : "kvart invito", "hegy" : "ellenfél arca"},
+      "note" : "A test belső oldalát fedi és a fejet és egész külső oldalt adja ki. Szekondból átmenet segítségével kivitelezhető.",
+	  "images" : ["arlow/kvart-invito.png"]
+    },
+	{
+	  "name" : "kvint védés",
+	  "invokes" : ["kvint invito"]
+	}
+	{
+      "name" : "kvint invito",
+      "assertions" : {"kéz" : "1. kézállás", "állás" : "kvint invito"},
+      "note" : "Fejünket felülről fedezi, az oldalt és belső réseket adja ki..",
+	  "images" : ["arlow/kvint-invito.png"]
+    },
+	{
+	  "name" : "szekszt védés",
+	  "note" : "TODO"
+	}
+	{
+      "name" : "prim kötés",
+      "invokes" : ["prim invito"]
+      "note" : "Szekond kötésből vagy gardból átmenet segítségével kivitelezhető, az ellenfél kardja fölött."
+    },
+	{
+      "name" : "szekond kötés",
+      "invokes" : ["szekond gard"]
+      "note" : "Szekond invitoból az ellenfél szekond-gardja (vagy az alsó vonalban tartott kardja) ellen átmenet segítségével kivitelezhető, az ellenfél kardja fölött."
+    },
+	{
+      "name" : "terc kötés",
+      "invokes" : ["terc gard"]
+      "note" : "Terc invitoból vagy kvart kötésből az  ellenfél terc-gardja (vagy a felső vonalban tartott kardja) ellen átmenet segítségével kivitelezhető, az ellenfél kardja alatt."
+    },
+	{
+      "name" : "kvart kötés",
+      "invokes" : ["kvart invito"]
+      "note" : "Terc kötésből vagy gardból átmenet segítségével kivitelezhető, az ellenfél kardja alatt."
+    },
+	{
+      "name" : "kvint kötés",
+      "invokes" : ["kvint invito"]
     },
     {
       "name" : "alsó egyenes szúrás",
@@ -139,14 +224,87 @@
       "assertions" : {},
       "invokes" : ["szekond invito"],
       "note" : ""
-    },
-	{
-      "name" : "ugrásroham",
-      "assertions" : {},
-      "invokes" : ["kitörés"],
-      "note" : ""
     }
   ],
+  
+  "additional-notes": [
+	{
+		"name" : "alsó vonal",
+		"note" : " a kinyújtott jobb kart úgy tartjuk rézsűt lefelé, hogy a kardhegy csípőnk előtt áll"
+	},
+	{
+		"name" : "felső vonal",
+		"note" : "A vívóvonal fölött kinyújtott jobb kar és a kard vízszintesen van, és a kard hegye jobb vállunk előtt áll"
+	},
+	{
+		"name" : "1. kézállás",
+		"note" : "A kard éle felfelé áll"
+	},
+	{
+		"name" : "1/2. kézállás",
+		"note" : "A kard éle felfelé és jobbar áll"
+	},
+	{
+		"name" : "2. kézállás",
+		"note" : "A kard éle jobbra áll"
+	},
+	{
+		"name" : "2/3. kézállás",
+		"note" : "A kard éle jobbra és lefelé áll"
+	},
+	{
+		"name" : "3. kézállás",
+		"note" : "A kard éle lefelé áll"
+	},
+	{
+		"name" : "3/4. kézállás",
+		"note" : "A kard éle lefelé és balra áll"
+	},
+	{
+		"name" : "4. kézállás",
+		"note" : "A kard éle balra áll"
+	},
+	{
+		"name" : "4/1. kézállás",
+		"note" : "A kard éle balra és felfelé áll - a tenyér felfelé néz"
+	},
+	{
+		"name" : "1/4. kézállás",
+		"note" : "A kard éle balra és felfelé áll - a tenyér jobbra néz"
+	},
+	{
+		"name" : "egyenes vágás",
+		"note" : "Egy adott helyzetből legrövidebb úton érjük el az ellenfél testét"
+	},
+	{
+		"name" : "lendített vágás",
+		"note" : "Lendített vágás az olyan, melynél előbb az ellenfél útunkban álló kardját kerüljük ki."
+	},
+	{
+		"name" : "körlendítés",
+		"note" : "köralakban végzett lendített vágás"
+	},
+	{
+		"name" : "egyenes lendítés",
+		"note" : "egyenes vonalon végzett lendített vágás (lsd. coupé lendítés)"
+	},
+	{
+		"name" : "coupé lendítés",
+		"note" : "egyenes vonalon végzett lendített vágás (lsd. egyenes lendítés)"
+	},
+	{
+		"name" : "invito",
+		"note" : "A kardállásokat,melyekkel egy-egy testrészt elfedve, más részeket feltűnően kiadunk, invitónak (csalogatásnak, beugratásnak) nevezzük. Az invitók voltaképen nem egyebek, mint szabályos védések, a különbség köztük csak az, hogy az invitó a kard nyugvó helyzetét jelenti, melyben az ellenfél megkezdendő akcióját várjuk."
+	},
+	{
+		"name" : "védés",
+		"note" : "A védés a már megindult vágás vagy szúrás elébe történő ellenmozdulat, melynek véghatára a karnak és kardnak az invitónál elfoglalt helyzete."
+	},
+	{
+		"name" : "átmenetnek",
+		"note" : "Ha a kötés végrehajtásához az szükséges, hogy ellenfelünk pengéjét, kardunk hegyével előbb körben, felül vagy alul megkerüljük, ezt a mozdulatot átmenetnek (changement, cambiamento) nevezzük."
+	}
+  ]
   
   "exercises" : [
 	{
