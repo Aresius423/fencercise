@@ -116,7 +116,7 @@
 	},
 	{
 	  "name" : "külső arcvágás",
-	  "assertions" : {"kéz" : "2. kézállás", "kard" : "felső vonal"}
+	  "assertions" : {"kéz" : "2. kézállás", "kard" : "felső vonal"},
 	  "note" : "éllel jobbra, és egy kicsit felfelé"
 	},
 	{
@@ -144,10 +144,15 @@
 	  "assertions" : {"kéz" : "1/4. kézállás", "állás" : "prim invito"},
 	  "note" : "Fedezi és az oldalt, külső arcot és kart adja ki.",
 	  "images" : ["arlow/prim-invito.png"]
-	}
+	},
+	{
+	  "name" : "magas prim védés",
+	  "assertions" : {"kéz" : "1/4. kézállás", "állás" : "magas prim"},
+	  "images" : ["arlow/magas-prim.png"]
+	},
 	{
       "name" : "szekond védés",
-      "invokes" : ["szekond invito"],
+      "invokes" : ["szekond invito"]
     },
     {
       "name" : "szekond invito",
@@ -156,9 +161,15 @@
 	  "images" : ["arlow/szekond-invito.png"]
     },
 	{
+	  "name" : "magas szekond védés",
+	  "assertions" : {"kéz" : "1/2. kézállás", "állás" : "magas szekond"},
+	  "images" : ["arlow/magas-szekond.png"],
+	  "note" : "A vágást ugyan gyakran a kosárral fogjuk fel, [...] a magas szekond-védes szabályszerű átmeneteket biztosít."
+	},
+	{
 	  "name" : "terc védés",
 	  "invokes" : ["terc invito"]
-	}
+	},
 	{
       "name" : "terc invito",
       "assertions" : {"kéz" : "2/3. kézállás", "állás" : "terc invito"},
@@ -166,9 +177,19 @@
 	  "images" : ["arlow/terc-invito.png"]
     },
 	{
+	  "name" : "magas terc védés",
+	  "assertions" : {"kéz" : "2. kézállás", "állás" : "magas terc"},
+	  "images" : ["arlow/magas-terc.png"]
+	},
+	{
+	  "name" : "mély terc védés",
+	  "assertions" : {"kéz" : "2/3. kézállás", "állás" : "mély terc"},
+	  "images" : ["arlow/mely-terc.png"]
+	},
+	{
 	  "name" : "kvart védés",
 	  "invokes" : ["kvart invito"]
-	}
+	},
 	{
       "name" : "kvart invito",
       "assertions" : {"kéz" : "3/4. kézállás", "állás" : "kvart invito", "hegy" : "ellenfél arca"},
@@ -176,9 +197,15 @@
 	  "images" : ["arlow/kvart-invito.png"]
     },
 	{
+	  "name" : "mély kvart védés",
+	  "assertions" : {"kéz" : "3/4. kézállás", "állás" : "mély kvart"},
+	  "images" : ["arlow/mely-kvart.png"]
+	},
+	{
 	  "name" : "kvint védés",
-	  "invokes" : ["kvint invito"]
-	}
+	  "invokes" : ["kvint invito"],
+	  "note" : "Kis távolságnál annyiban módosítjuk, hogy karunkat jobban behajlítjuk és öklünket a rendesnél magasabbra vesszük fel."
+	},
 	{
       "name" : "kvint invito",
       "assertions" : {"kéz" : "1. kézállás", "állás" : "kvint invito"},
@@ -188,26 +215,27 @@
 	{
 	  "name" : "szekszt védés",
 	  "assertions" : {"kéz" : "1. kézállás", "állás" : "szekszt védés végpozíciója"},
-	  "images" : ["arlow/szekszt-vedes.png"]
-	}
+	  "images" : ["arlow/szekszt-vedes.png"],
+	  "note" : "Ebből a védésből vehetjük a szekond-, terc-, mély terc-, kvart- és mély kvart-védést. Kis távolságnál annyiban módosítjuk, hogy karunkat jobban behajlítjuk és öklünket a rendesnél magasabbra vesszük fel."
+	},
 	{
       "name" : "prim kötés",
-      "invokes" : ["prim invito"]
+      "invokes" : ["prim invito"],
       "note" : "Szekond kötésből vagy gardból átmenet segítségével kivitelezhető, az ellenfél kardja fölött."
     },
 	{
       "name" : "szekond kötés",
-      "invokes" : ["szekond gard"]
+      "invokes" : ["szekond gard"],
       "note" : "Szekond invitoból az ellenfél szekond-gardja (vagy az alsó vonalban tartott kardja) ellen átmenet segítségével kivitelezhető, az ellenfél kardja fölött."
     },
 	{
       "name" : "terc kötés",
-      "invokes" : ["terc gard"]
+      "invokes" : ["terc gard"],
       "note" : "Terc invitoból vagy kvart kötésből az  ellenfél terc-gardja (vagy a felső vonalban tartott kardja) ellen átmenet segítségével kivitelezhető, az ellenfél kardja alatt."
     },
 	{
       "name" : "kvart kötés",
-      "invokes" : ["kvart invito"]
+      "invokes" : ["kvart invito"],
       "note" : "Terc kötésből vagy gardból átmenet segítségével kivitelezhető, az ellenfél kardja alatt."
     },
 	{
@@ -229,15 +257,29 @@
 	  "alias" : ["filo"],
 	  "note" : "Saját kardunk erős részével ellenfelünk kardjának gyönge részét lefogjuk vagy lekötjük, és így erőszakkal nyitva rést, abba mintegy az ellenfél kardján végigcsúszva, hatolunk be."
 	},
+	{
+	  "name" : "felső kötött szúrás",
+	  "alias" : ["filo di terza"],
+	  "assertions" : {"hegy" : "felső vonal"},
+	  "invokes" : ["kötött szúrás"],
+	  "note" : "TODO"
+	},
+	{
+	  "name" : "alsó kötött szúrás",
+	  "alias" : ["filo di seconda"],
+	  "assertions" : {"hegy" : "alsó vonal"},
+	  "invokes" : ["kötött szúrás"],
+	  "note" : "TODO"
+	},
     {
       "name" : "alsó egyenes szúrás",
       "assertions" : {"hegy" : "alsó vonal"},
-	  "invokes" : ["egyenes szúrás"],
+	  "invokes" : ["egyenes szúrás"]
     },
 	{
       "name" : "felső egyenes szúrás",
       "assertions" : {"hegy" : "felső vonal"},
-	  "invokes" : ["egyenes szúrás"],
+	  "invokes" : ["egyenes szúrás"]
     },
 	{
       "name" : "egyszerű védés",
@@ -248,13 +290,75 @@
 	  "alias" : ["parata di ceduta"]
     },
 	{
+	  "name" : "engedő védés primbe",
+	  "invokes": ["engedő védés", "prim védés"],
+	  "note" : "Akkor alkalmazzuk, ha ellenfelünk felső kötött szúrással támad (filo di terza) és érezzük, hogy a terc-védés elégtelen, mert a pengénk szúrás által le van fogva, Ilyenkor az érintkezést az ellenfél pengéjével fent tartva, kardunk hegyét leeresztjük, csuklóban kissé engedve, könyökünket nyújtva, annyira felfelé fordítjuk, hogy a prim- állásba jussunk."
+	},
+	{
+	  "name" : "engedő védés magas primbe",
+	  "invokes": ["engedő védés", "magas prim védés"],
+	  "note" : "Akkor csináljuk, ha ellenfelünk kvart-invitónkra vagy kötésünkre pengénket elütéssel belülről támadta meg és utána fokkal vagy kisebb távolság mellett belső arcot vág."
+	},
+	{
+	  "name" : "engedő védés magas szekondba",
+	  "invokes": ["engedő védés", "magas szekond védés"],
+	  "note" : "Akkor alkalmazzuk, ha mély terc- vagy terc-invitónk- vagy kötésünkre ellenfelünk a pengénket elütéssel belülről támadja meg és utána külső arcot vág. Kardunk hegyét az elütés irányának engedve leeresztjük, karunkat és öklünket annyira felfelé emeljük, hogy a kardhegy az ellenfél kardjának kosarát belülről és alulról megkerülve, a karja alá és kardunk az ellenfél vasa és testünk közé kerüljön és mi a magas szekond- állásba jussunk."
+	},
+	{
+	  "name" : "engedő védés mély tercbe",
+	  "invokes": ["engedő védés", "mély terc védés"],
+	  "note" : "Akkor alkalmazzuk, ha szekond-invitónkra vagy kötésünkre ellenfelünk a pengénket belső elütéssel támadta meg és oldalt vagy alsó kart vág utána. (Szúrás ellen nem véd.) Kardunk hegyével, az elütés irányának engedve, az ellenfél kardjának kosarát belülről megkerülve és könyökünket befelé fordítva, öklünket és karunkat úgy hozzuk a jobb comb mellé (jobbra), hogy kardunk a test és vágás közé kerüljön és így a mély terc- állásba jussunk."
+	},
+	{
+	  "name" : "engedő védés mély kvartba",
+	  "invokes": ["engedő védés", "mély kvart védés"],
+	  "note" : "Akkor alkalmazzuk, ha ellenfelünk alsó kötött szúrással támad (filo di seconda), amikor is érezzük, hogy szekond-védéssel nem boldogulhatunk, mert pengénk a szúrás által le van fogva, az érintkezést az ellenfél pengéjével fentartva, a csuklóban egy keveset engedve, kardunkat úgy hozzuk a mély kvart-állásba, hogy pengénkkel a lefogott pont, mint középpont körül forogva, öklünkkel és karunkkal jobb combunk mellé (balra) lesietünk és a szúrást így mintegy felkarolva, irányából eltérítjük. Az engedő védést mély kvartba alkalmazzuk továbbá, ha prim-invitónkra vagy kötésünkre ellenfelünk pengénket elütéssel belülről támadta meg és hasvágással, vagy belső fokvágással támad a karra (ez a szúrás ellen is véd). Kardunk hegyével az elütés irányának engedve, az ellenfél kardjának kosarát kívülről kerülve meg, öklünket felemeljük, karunkat egyenesen annyira lehozzuk jobb combunk mellé (balra), hogy kardunk testünk és az ellenfél pengéje közzé kerüljön és a mély kvart-állásba jussunk."
+	},
+	{
+	  "name" : "engedő védés szeksztbe",
+	  "alias": ["szeptim védés"],
+	  "invokes": ["engedő védés", "szekszt védés"],
+	  "note" : "Az magas szekondba való engedő védéshez hasonlóan, akkor alkalmazzuk, ha mély terc- vagy terc-invitónk- vagy kötésünkre ellenfelünk a pengénket elütéssel belülről támadja meg és utána külső arcot vág. Karunkat egyenesen felemelve, és könyökünket, mint a szekszt-védéshez, befelé fordítva, öklünket annyira a jobb halánték fölé emeljük, hogy csuklónkat a kézfej irányában erősen hátrahajlítva, kardunk hegye jobbra hátrafelé álljon és így a szeptimállásba jussunk. A szeptim-védést Arlow a magas szekond által pótolhatónak tartom. A vágást gyakran a kosárral fogjuk fel, de szeptim védésből soha sem lehet más védésbe átmenni (mert még a kardfogást is részben feladtuk)."
+	},
+	{
       "name" : "körvédés",
-	  "alias" : ["contre-parade", "parata di contro"]
+	  "alias" : ["contre-parade", "parata di contro"],
+	  "note" : "Szúrások ellen a körvédéssel mindig a kardkosarat kerüljük meg. Vágások ellen a körvédéseket részben az ellenfél kosarát, részben kardjának hegyét megkerülve, vesszük."
+    },
+	{
+      "name" : "körprim-védés",
+	  "alias" : ["contre-prime", "contro di príma"],
+	  "invokes" : ["körvédés", "prim kötés"],
+	  "note" : "Vehetjük a prim-védésből (invitóból v. kötésből): az alsó szúrás vagy kitérő szúrás ellen, és elütésre belülről történt szúrás vagy egyenes hasvágás ellen, ha azt nem a rendes mély kvartba engedő védéssel akarjuk hárítani. Az ellenfél kardját a kosár fölött kerüljük meg."
+    },
+	{
+      "name" : "körszekond-védés",
+	  "alias" : ["contre-seconde", "contro di seconda"],
+	  "invokes" : ["körvédés", "szekond kötés"],
+	  "note" : "Vehetjük a szekond-védésből (invitóból vagy kötésből): a felső szúrás vagy kitérő szúrás ellen, továbbá elütésre belülről történt szúrás, egyenes oldalvagy alsó karvágás ellen, ha azt nem a mély tercbe engedő védéssel akarjuk elhárítani, vagy ha avval nem lehet hárítani, mint például a szúrást. Az ellenfél kardját a kosár fölött kerüljük meg."
+    },
+	{
+      "name" : "körterc-védés",
+	  "alias" : ["contre-tierce", "contro di terza"],
+	  "invokes" : ["körvédés", "terc kötés"],
+	  "note" : "A körterc-védést terc-invitóból, kötésből vagy gardból kétféleképen vehetjük: <br> a) kardunk hegyével az ellenfél kardjának kosarát alul kerüljük meg; szúrások és felső karvágás (coupé) ellen vagy ha ellenfelünk a pengénket belső elütéssel támadta meg és utána külső arcot vág. <br> b) az utóbbi esetben védhetünk úgy is, hogy kardunk hegyét az elütés irányában csukló- és könyök-hajlítás által hátrahozva, ellenfelünk kardjának hegyét egy körben megkerüljük, hogy öklünk jobb hónaljunk elé kerüljön, mire aztán ismét a terc-állásba megyünk át. Az ellenfél kardját a kosár alatt kerüljük meg."
+    },
+	{
+      "name" : "körkvart-védés",
+	  "alias" : ["contre-quarte", "contro di quarta"],
+	  "invokes" : ["körvédés", "kvart kötés"],
+	  "note" : "A körkvart-védést a kvart-védésből (invitóból vagy kötésből) kizárólag a külső szúrás (vagy annak cselezése) ellen alkalmazzuk. Az ellenfél kardját a kosár alatt kerüljük meg."
+    },
+	{
+      "name" : "körkvint-védés",
+	  "alias" : ["contro di quinta"],
+	  "invokes" : ["körvédés", "kvint kötés"],
+	  "note" : "A körkvint-védést a kvint-védésből (invitóból vagy kötésből) kétféleképen vehetjük: <br> a) kardunk hegyével ellenfelünk kardjának kosarát alulról kerüljük meg, ha ellenfelünk szúrt vagy a pengénket elütéssel alulról támadta meg és utána egyenesen fejet vág vagy <br> b) az utóbbi esetben úgy is védhetünk, hogy pengénkkel az elütésnek engedve, ellenfelünk kardhegyét kerüljük meg egy körben felülről úgy, hogy öklünk jobb hónaljunk elé kerüljön, mire aztán ismét a kvint-állásba megyünk át. Az ellenfél kardját a kosár fölött kerüljük meg."
     },
 	{
       "name" : "külső elütés",
       "assertions" : {},
-      "invokes" : ["szekond invito"],
+      "invokes" : ["szekond invito"]
     }
   ],
   
@@ -343,7 +447,7 @@
 		"name" : "szögvágás",
 		"note": "A szögvágás olyan vágás, aminek a pillanatában a kar és a kard nem egyenes vonalat, hanem szöget képez. Csinálhatóak éllel és fokkal."
 	}
-  ]
+  ],
   
   "exercises" : [
 	{
