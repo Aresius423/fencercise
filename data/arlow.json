@@ -136,6 +136,38 @@
 	  "assertions" : {"kéz" : "4/1. kézállás"}
 	},
 	{
+	  "name" : "felső karvágás",
+	  "assertions" : {"kéz" : "3. kézállás"}
+	},
+	{
+	  "name" : "alsó karvágás",
+	  "assertions" : {"kéz" : "1. kézállás"}
+	},
+	{
+	  "name" : "külső karvágás",
+	  "assertions" : {"kéz" : "2. kézállás"}
+	},
+	{
+	  "name" : "belső karvágás",
+	  "assertions" : {"kéz" : "4. kézállás"}
+	},
+	{
+	  "name" : "felső kézvágás",
+	  "assertions" : {"kéz" : "3. kézállás"}
+	},
+	{
+	  "name" : "alsó kézvágás",
+	  "assertions" : {"kéz" : "1. kézállás"}
+	},
+	{
+	  "name" : "külső kézvágás",
+	  "assertions" : {"kéz" : "2. kézállás"}
+	},
+	{
+	  "name" : "belső kézvágás",
+	  "assertions" : {"kéz" : "4. kézállás"}
+	},
+	{
 	  "name" : "prim védés",
 	  "invokes" : ["prim invito"]
 	},
@@ -356,6 +388,39 @@
 	  "note" : "A körkvint-védést a kvint-védésből (invitóból vagy kötésből) kétféleképen vehetjük: <br> a) kardunk hegyével ellenfelünk kardjának kosarát alulról kerüljük meg, ha ellenfelünk szúrt vagy a pengénket elütéssel alulról támadta meg és utána egyenesen fejet vág vagy <br> b) az utóbbi esetben úgy is védhetünk, hogy pengénkkel az elütésnek engedve, ellenfelünk kardhegyét kerüljük meg egy körben felülről úgy, hogy öklünk jobb hónaljunk elé kerüljön, mire aztán ismét a kvint-állásba megyünk át. Az ellenfél kardját a kosár fölött kerüljük meg."
     },
 	{
+      "name" : "kitérés",
+      "invokes" : [],
+	  "note" : "A kitérést csak belső vágások ellen szabad alkalmazni. A kitérést belső karvágás ellen úgy csináljuk, hogy jobb karunkat könyökben erősen behajtva, jobbra és egy keveset lefelé viszszük, hogy a vágás el ne érhesse és ellenfelünk kinyújtott karjára felül vagy kívül azonnal utánvágunk."
+    },
+	{
+      "name" : "kitérés felső kézvágással",
+      "invokes" : ["kitérés", "felső kézvágás"]
+    },
+	{
+      "name" : "kitérés külső kézvágással",
+      "invokes" : ["kitérés", "külső kézvágás"]
+    },
+	{
+	  "name" : "ismételt támadás kitöréssel",
+	  "invokes" : ["kitörés"],
+	  "note" : "Ha ellenfelünk helytállva védett és nem vág vissza, akkor a kitörésből gyorsan felkelünk (nem mulasztva el a jobb láb sarkával a dobbantást sem) és a terc-gardon át vett lendítéssel, újabb kitöréssel valamelyik résbe lehető gyorsan újból vágunk vagy szúrunk."
+	},
+	{
+	  "name" : "ismételt támadás ismételt ugrás-rohammal",
+	  "invokes" : ["ugrás-roham"],
+	  "note" : "Ha ellenfelünk hátraugrott, akkor csak az ismételt rohammal érhetjük el."
+	},
+	{
+	  "name" : "ismételt támadás ismételt lépés-rohammal",
+	  "invokes" : ["lépés-roham"],
+	  "note" : "Ha ellenfelünk hátraugrott, akkor csak az ismételt rohammal érhetjük el."
+	},
+	{
+	  "name" : "ismételt támadás ismételt kitöréssel",
+	  "invokes" : ["kitörés"],
+	  "note" : "Ha ellenfelünk hátra lépve védett vagy tért ki, de a riposztot vagy az utánvágást elmulasztotta, akkor nem hátra kelünk fel a kitörésből, hanem előre (ismételt kitörés) és a gardon át vett lendítéssel újabb kitöréssel valamelyik résbe gyorsan újból támadunk."
+	},
+	{
       "name" : "külső elütés",
       "assertions" : {},
       "invokes" : ["szekond invito"]
@@ -446,6 +511,22 @@
 	{
 		"name" : "szögvágás",
 		"note": "A szögvágás olyan vágás, aminek a pillanatában a kar és a kard nem egyenes vonalat, hanem szöget képez. Csinálhatóak éllel és fokkal."
+	},
+	{
+		"name" : "riposzt",
+		"note" : "A védés után közvetlen adott, azzal mintegy egybekötött szúrás vagy vágás visszavágásnak, esetleg visszaszúrásnak (ripószt, riposte, risposta) neveztetik. <br> A visszavágás adható egyenes vágással vagy szúrással, lendített-vágással vagy kitérő szúrással, sőt csellel is; jellemző sajátsága, hogy a védést azonnal követi. A vívó akkor van ugyanis legjobban kiadva, mikor kitörésben van, illetve mikor abból felkel; ezt az állapotát kell tehát felhasználni arra, hogy egy vágást vagy szúrást neki bevigyünk. Ez okból nem szabad soha sem a támadást elővigyázat nélkül hajtani végre, hanem mindig gondolni kell az utána jöhető riposztra, és viszont, egyetlen sikerült védés után sem szabad a riposztot elszalasztani. <br> A visszavágásokat épp oly módon adjuk, mint a közönséges vágásokat, a különbség csupán az, hogy a kiindulás itt a védés, és az előadottakra való tekintettel fokozott gyorsaság kívánatos. A visszavágásokat rendesen kitörés nélkül csináljuk, ha ellenfelünk a zárt távolságon van; de kitörésből, ha a támadás rövid volt, illetve a karra irányult, tehát nincs a zárt távolságon."
+	},
+	{
+		"name" : "kontra-riposzt",
+		"note": "Aki visszavágott, legyen kész arra, hogy ellenfele véd és rögtön viszonozza a visszavágást. E második visszavágást ellen-visszavágásnak (kontra-riposzt), az ily visszavágások hosszabb sorozatát riposzt-játéknak (hármas, ötös stb. riposzt-játék) nevezzük."
+	},
+	{
+		"name" : "riposzt védése",
+		"note": "Védéseink visszavágások (riposzt) ellen annyiban módosulnak, hogy azokat mindig a terc-gardon keresztül (át) kell venni."
+	},
+	{
+		"name" : "ismételt egyszerű támadás",
+		"note" : "Az ismételt egyszerű támadás, mint neve is mutatja, nem egyéb mint a támadás (vágás, szúrás) ismétlése. Akkor alkalmazzuk, ha az ellenfél támadásunkat kivédte, vagy az elől kitért, de a visszavágást vagy utánvágást elmulasztotta."
 	}
   ],
   
