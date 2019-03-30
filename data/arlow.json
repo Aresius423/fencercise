@@ -187,7 +187,8 @@
     },
 	{
 	  "name" : "szekszt védés",
-	  "note" : "TODO"
+	  "assertions" : {"kéz" : "1. kézállás", "állás" : "szekszt védés végpozíciója"},
+	  "images" : ["arlow/szekszt-vedes.png"]
 	}
 	{
       "name" : "prim kötés",
@@ -213,17 +214,47 @@
       "name" : "kvint kötés",
       "invokes" : ["kvint invito"]
     },
+	{
+	  "name" : "egyenes szúrás",
+	  "alias" : ["colpo di punta", "puntata"],
+	  "note" : "Ellenfelünk nyitott réseibe irányítjuk, a lehető legrövidebb úton."
+	},
+	{
+	  "name" : "kitérő szúrás",
+	  "alias" : ["cavazione"],
+	  "note" : "Nevét onnan veszi, hogy ezt nem egyenesen, hanem az ellenfél pengéjének kitérve, a kiindulással ellenkező oldalon levő résbe csináljuk."
+	},
+	{
+	  "name" : "kötött szúrás",
+	  "alias" : ["filo"],
+	  "note" : "Saját kardunk erős részével ellenfelünk kardjának gyönge részét lefogjuk vagy lekötjük, és így erőszakkal nyitva rést, abba mintegy az ellenfél kardján végigcsúszva, hatolunk be."
+	},
     {
       "name" : "alsó egyenes szúrás",
       "assertions" : {"hegy" : "alsó vonal"},
-      "invokes" : [],
-      "note" : ""
+	  "invokes" : ["egyenes szúrás"],
+    },
+	{
+      "name" : "felső egyenes szúrás",
+      "assertions" : {"hegy" : "felső vonal"},
+	  "invokes" : ["egyenes szúrás"],
+    },
+	{
+      "name" : "egyszerű védés",
+	  "alias" : ["védés","parata semplice"]
+    },
+	{
+      "name" : "engedő védés",
+	  "alias" : ["parata di ceduta"]
+    },
+	{
+      "name" : "körvédés",
+	  "alias" : ["contre-parade", "parata di contro"]
     },
 	{
       "name" : "külső elütés",
       "assertions" : {},
       "invokes" : ["szekond invito"],
-      "note" : ""
     }
   ],
   
@@ -303,6 +334,14 @@
 	{
 		"name" : "átmenetnek",
 		"note" : "Ha a kötés végrehajtásához az szükséges, hogy ellenfelünk pengéjét, kardunk hegyével előbb körben, felül vagy alul megkerüljük, ezt a mozdulatot átmenetnek (changement, cambiamento) nevezzük."
+	},
+	{
+		"name" : "egyenes vágás",
+		"note" : "Ezen vágásoknál a vágás befejezése pillanatában a kard mindig a kar meghosszabbítását képezi, már t. i. amennyire az ismertetett kardfogás ezt megengedi. A csukló ebben a pillanatban a hüvelykujj irányában teljesen egyenes."
+	},
+	{
+		"name" : "szögvágás",
+		"note": "A szögvágás olyan vágás, aminek a pillanatában a kar és a kard nem egyenes vonalat, hanem szöget képez. Csinálhatóak éllel és fokkal."
 	}
   ]
   
