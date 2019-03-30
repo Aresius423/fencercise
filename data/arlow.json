@@ -460,7 +460,7 @@
 	  "flow" : [
 		  {
 			"actor" : "tanítvány",
-			"actions" : ["külső elütés","ugrásroham"],
+			"actions" : ["külső elütés","ugrás-roham"],
 			"assertions" : {},
 			"note" : ""
 		  },
@@ -488,7 +488,7 @@
 	  "flow" : [
 		  {
 			"actor" : "tanítvány",
-			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"actions" : ["külső elütés","ugrás-roham","terc invito"],
 			"assertions" : {},
 			"note" : "Az elütést kívülről, lefelé végezzük"
 		  },
@@ -516,7 +516,7 @@
 	  "flow" : [
 		  {
 			"actor" : "tanítvány",
-			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"actions" : ["külső elütés","ugrás-roham","terc invito"],
 			"assertions" : {},
 			"note" : "Az elütést kívülről, lefelé végezzük"
 		  },
@@ -550,7 +550,7 @@
 	  "flow" : [
 		  {
 			"actor" : "tanítvány",
-			"actions" : ["külső elütés","ugrásroham","terc invito"],
+			"actions" : ["külső elütés","ugrás-roham","terc invito"],
 			"assertions" : {"kéz" : "2. kézállás", "állás" : "terc invito"},
 			"note" : "Az elütést kívülről, lefelé végezzük"
 		  },
@@ -578,7 +578,7 @@
 	  "flow" : [
 		  {
 			"actor" : "tanítvány",
-			"actions" : ["külső elütés","ugrásroham"],
+			"actions" : ["külső elütés","ugrás-roham"],
 			"assertions" : {"kéz" : "2. kézállás", "állás" : "terc invito"},
 			"note" : "Az elütést kívülről, lefelé végezzük"
 		  },

@@ -5,6 +5,8 @@ class SystemData {
 		
 		let jsData = JSON.parse(rawData)
 		
+		validateJson(jsData).forEach(d => console.log(d))
+		
 		this.system = jsData["system"]
 		this.techniques = jsData["techniques"]
 		this.exercises = jsData["exercises"]
