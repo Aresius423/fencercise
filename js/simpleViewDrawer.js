@@ -27,6 +27,7 @@ class SimpleViewDrawer{
 		}
 		
 		//update parts
+		this.clearViewFrames()
 		document.getElementById("stepdesc").innerHTML = model.activeInstructions.join('<br>')
 		document.getElementById("stepnote").innerHTML = model.activeNote.join('<br>')
 		this.updateParts(model)
