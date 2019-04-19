@@ -676,6 +676,31 @@
 			"note" : "opponál"
 		  }
 		]
+	},
+	{
+	  "name" : "Concurrent actions",
+	  "init" : {
+		"mester" : "szekond gard",
+		"tanítvány" : "szekond gard",
+		"note" : ["rendes távolság"]
+	  },
+	  "flow" : [
+		  {
+			"actor" : "tanítvány",
+			"actions" : ["terc gard"]
+		  },
+		  [
+			  {
+				"actor" : "tanítvány",
+				"actions" : ["előre-lépés"]
+			  },
+			  {
+				"actor" : "mester",
+				"actions" : ["hátra-lépés"],
+				"note" : "just dance"
+			  }
+		  ]
+		]
 	}
   ]
 }

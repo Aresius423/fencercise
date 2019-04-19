@@ -18,8 +18,8 @@ class SystemData {
 		
 		this.loadStatus = "firstload"
 		this.exerciseTrace = this.defaultTrace()
-		this.activeInstructions = ""
-		this.activeNote = ""
+		this.activeInstructions = []
+		this.activeNote = []
 	}
 	
 	enableNotifications(){this.notificationsEnabled = true}
@@ -55,20 +55,22 @@ class SystemData {
 		
 		this.updateExerciseTrace(stepTrace)
 		
-		return action?`${actorName}: ${action}<br>`:""
+		return action?`${actorName}: ${action}`:""
 	}
 	
 	initExercise(){
 		this.exerciseStep = -1
 		this.exerciseTrace = this.defaultTrace()
-		this.activeInstructions = ""
+		this.activeInstructions = []
 		
 		for(let actor of this.system.participants){
-			this.activeInstructions += this.setupActor(actor)
+			let actorInstruction = this.setupActor(actor)
+			if(actorInstruction)
+				this.activeInstructions = this.activeInstructions.concat(actorInstruction)
 		}
 		let note = this.activeExercise.init["note"]
 		
-		this.activeNote = note?note:""
+		this.activeNote = note?[note]:[]
 		
 		this.notifyAll()
 		
@@ -85,11 +87,16 @@ class SystemData {
 		this.setAssertionsValid()
 		
 		let stepTrace = this.defaultTrace()
-		this.activeInstructions = `${currentStep.actor}: ${currentStep.actions.join(", ")}`
-		this.activeNote = currentStep.note ? currentStep.note : ""
 		
-		currentStep.actions.forEach(action => this.performAction(currentStep.actor, action, stepTrace))
-		this.runAssertions(currentStep.actor, currentStep.assertions, stepTrace)
+		let currentStepArray = (currentStep.__proto__.constructor.name === "Object") ? [currentStep] : currentStep
+		
+		this.activeInstructions = currentStepArray.map(step => `${step.actor}: ${step.actions.join(", ")}`)
+		this.activeNote = currentStepArray.map(step => step.note ? step.note : "").filter(Boolean)
+		
+		currentStepArray.forEach(step => {
+			step.actions.forEach(action => this.performAction(step.actor, action, stepTrace))
+			this.runAssertions(step.actor, step.assertions, stepTrace)
+		})
 		
 		this.updateExerciseTrace(stepTrace)
 		
@@ -137,7 +144,7 @@ class SystemData {
 			Object.keys(assertions).forEach(part => {
 				stepTrace[actor][part] = 
 					{"value":[assertions[part]], "status":"assertion", "trace":[`explicit: ${part} - ${assertions[part]}`]}
-				this.activeInstructions += `<br>${part} : ${assertions[part]}`
+				this.activeInstructions = this.activeInstructions.concat(`${actor} ${part} : ${assertions[part]}`)
 			})
 		}
 	}
