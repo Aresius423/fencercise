@@ -27,13 +27,17 @@ class SimpleViewDrawer{
 		}
 		
 		//update parts
-		this.clearViewFrames()
+		this.clearViewFrames(model.partStates)
 		document.getElementById("stepdesc").innerHTML = model.activeInstructions.join('<br>')
 		document.getElementById("stepnote").innerHTML = model.activeNote.join('<br>')
 		this.updateParts(model)
 		
+		if(model.exerciseStep == -1){
+			this.clearViewFrames(model.partStates, false)
+		}
+	
 		//update buttons
-		if(model.activeExercise){			
+		if(model.activeExercise){
 			this.setNextEnabled(model.exerciseStep < model.activeExercise.flow.length - 1)
 			this.setPrevEnabled(model.exerciseStep >= 0)
 		}
@@ -70,14 +74,18 @@ class SimpleViewDrawer{
 		document.getElementById("participant-1-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[1], parts)))
 	}
 	
-	clearViewFrames(){
+	clearViewFrames(partStates, clearContent = true){
 		Array.from(document.getElementsByClassName("bodypartstatus"))
 			.forEach(el => {
-				el.innerHTML = ''
-				el.classList.remove("invalid", "assertion", "valid")
+				if(clearContent){
+					el.innerHTML = ''
+				}
+				el.classList.remove.apply(el.classList, partStates)
 			})
-		Array.from(document.getElementsByClassName("bodyparttrace"))
-			.forEach(el => el.innerHTML = '')
+		if(clearContent){
+			Array.from(document.getElementsByClassName("bodyparttrace"))
+				.forEach(el => el.innerHTML = '')	
+		}
 	}
 	
 	handleEvent(event){
@@ -133,14 +141,14 @@ class SimpleViewDrawer{
 				
 				domElement.innerHTML = currentPart["value"].join("<br>")
 				domTraceElement.innerHTML = currentPart["trace"].join("<br>")
-				this.setPartValid(domElement, currentPart["status"])
+				this.setPartStatus(domElement, currentPart["status"], model.partStates)
 				
 			}
 		}
 	}
 	
-	setPartValid(domElement, partStatus){
-		domElement.classList.remove("invalid", "assertion", "valid")
+	setPartStatus(domElement, partStatus, partStates){
+		domElement.classList.remove.apply(domElement.classList, partStates)
 		
 		domElement.classList.add(partStatus)
 	}

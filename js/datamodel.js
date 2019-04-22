@@ -16,6 +16,13 @@ class SystemData {
 		
 		//data for external processing
 		
+		this.partStates = [
+			"valid",
+			"invalid",
+			"assertion",
+			"updated"
+		]
+		
 		this.loadStatus = "firstload"
 		this.exerciseTrace = this.defaultTrace()
 		this.activeInstructions = []
@@ -82,9 +89,15 @@ class SystemData {
 	}
 	
 	stepExercise(){
-		this.exerciseStep++
+		if(this.exerciseStep >= this.activeExercise.flow.length - 1){
+			return
+		}
+		else {
+			this.exerciseStep++
+		}
+		
 		let currentStep = this.activeExercise.flow[this.exerciseStep]
-		this.setAssertionsValid()
+		this.ageStatus()
 		
 		let stepTrace = this.defaultTrace()
 		
@@ -103,10 +116,10 @@ class SystemData {
 		this.notifyAll()
 	}
 	
-	setAssertionsValid(){
+	ageStatus(){
 		for(let actor of this.system.participants){
 			for(let part of Object.keys(this.exerciseTrace[actor])){
-				if(this.exerciseTrace[actor][part]["status"] == "assertion"){
+				if(this.exerciseTrace[actor][part]["status"] != "invalid"){
 					this.exerciseTrace[actor][part]["status"] = "valid"
 				}
 			}
@@ -125,6 +138,10 @@ class SystemData {
 	}
 	
 	setExerciseStage(exerciseStep){
+		if(exerciseStep < -1){
+			return
+		}
+		
 		this.initExercise()
 		
 		this.disableNotifications()
@@ -166,7 +183,7 @@ class SystemData {
 					}
 					else {
 						//everything is hunky-dory
-						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "status":"valid", "trace":[trace.concat(action).join(" \u2192 ")]}
+						stepTrace[actor][part] = {"value":[actionItem.assertions[part]], "status":"updated", "trace":[trace.concat(action).join(" \u2192 ")]}
 					}
 				}
 			)}
