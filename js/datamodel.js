@@ -198,6 +198,11 @@ class SystemData {
 	}
 	
 	defaultTrace(){
-		return {[this.system.participants[0]]: {}, [this.system.participants[1]]: {}}
+		let itemToKey = function(acc, cur){
+			acc[cur] = {}
+			return acc
+		}
+		
+		return this.system.participants.reduce(itemToKey, {})
 	}
 }

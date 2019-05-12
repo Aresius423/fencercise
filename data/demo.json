@@ -1,0 +1,70 @@
+{
+  "system" : {
+    "title":"Your very own fencing system",
+    "weapon":"rapier and dagger",
+    "bodyparts":
+    [
+      "left hand", "right hand", "stance"
+    ],
+	"participants" : ["defender", "attacker 1", "attacker 2"]
+  },
+  
+  "techniques" : [
+    {
+	  "name" : "stab",
+	  "assertions" : {
+		"right hand" : "stab"
+		}
+	},
+	{
+	  "name" : "parry",
+	  "assertions" : {
+		"left hand" : "parry"
+		}
+	},
+	{
+	  "name" : "imbroccata",
+	  "assertions" : {
+		"right hand" : "even more stab"
+		}
+	}
+  ],
+  
+  "exercises" : [
+	{
+	  "name" : "Demo exercise",
+	  "init" : {
+		"note" : ["random encounter"]
+	  },
+	  "flow" : [
+		  [
+			{
+				"actor" : "attacker 1",
+				"actions" : ["stab"]
+			},
+			{
+				"actor" : "attacker 2",
+				"actions" : ["stab"]
+			}
+		  ],
+		  {
+			"actor" : "defender",
+			"actions" : ["parry"],
+			"assertions" : {},
+			"note" : ""
+		  },
+		  {
+			"actor" : "defender",
+			"actions" : ["stab"],
+			"assertions" : {"left hand": "protecting right hand"},
+			"note" : "stab attacker 1"
+		  },
+		  {
+			"actor" : "defender",
+			"actions" : ["imbroccata"],
+			"note" : "finish off attacker 2"
+		  }
+		]
+	}
+  ]
+}

@@ -70,8 +70,13 @@ class SimpleViewDrawer{
 	
 	drawViewFrames(model){
 		let parts = model.system.bodyparts
-		document.getElementById("participant-0-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[0], parts)))
-		document.getElementById("participant-1-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[1], parts)))
+		if (model.system.participants.length == 2){
+			document.getElementById("participant-0-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[0], parts)))
+			document.getElementById("participant-1-frame").innerHTML = tagwrap("center", tagwrap("table", this.participantTable(model.system.participants[1], parts)))
+		}
+		else {  // TODO: prettify
+			document.getElementById("participant-0-frame").innerHTML = model.system.participants.map(participant => tagwrap("center", tagwrap("table", this.participantTable(participant, parts)))).join('')
+		}
 	}
 	
 	clearViewFrames(partStates, clearContent = true){
