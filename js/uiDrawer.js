@@ -32,6 +32,17 @@ class UiDrawer{
 		document.getElementById("stageslider").addEventListener("input", listener)
 	}
 	
+	static drawLegend(){
+		document.getElementById("legend").innerHTML = [
+			'Legend:<br>',
+			'<span class="invalid">Invalid item</span>',
+			'<span class="updated">Recently updated item</span>', 
+			'<span class="assertion">Item updated with assertion</span>', 
+			'<span class="stepbox">Instruction</span>',
+			'<span class="notebox">Note</span>'
+		].join('<br>')
+	}
+	
 	static setupSlider(range){
 		document.getElementById("stageslider").max = range-1
 	}

@@ -23,6 +23,7 @@ class SimpleViewDrawer{
 			this.drawViewFrames(model)
 			document.getElementById("exercise-title").innerHTML = tagwrap("center", model.activeExercise.name)
 			UiDrawer.drawControls(this)
+			UiDrawer.drawLegend()
 			UiDrawer.setupSlider(model.activeExercise.flow.length)
 		}
 		
@@ -76,6 +77,7 @@ class SimpleViewDrawer{
 		}
 		else {  // TODO: prettify
 			document.getElementById("participant-0-frame").innerHTML = model.system.participants.map(participant => tagwrap("center", tagwrap("table", this.participantTable(participant, parts)))).join('')
+			document.getElementById("participant-1-frame").innerHTML = ''
 		}
 	}
 	

@@ -41,14 +41,24 @@ tr, td {
 	flex: 1;
 }
 
+#displaycontainer {
+	display: flex;
+}
+
 #displaybox {
 	max-width: 600px;
 	display: flex;
+	float: left;
 	flex-flow: column;
 }
 
 #displaybox > * {
 	margin: 10px;
+}
+
+#legend {
+	margin-left: 5%;
+	flex-grow: 1;
 }
 
 .pframe {
